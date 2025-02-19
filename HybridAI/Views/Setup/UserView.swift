@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  UserView.swift
 //  HybridAI
 //
 //  Created by Michael Bautista on 2/17/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct UserView: View {
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -20,5 +20,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    UserView()
 }
