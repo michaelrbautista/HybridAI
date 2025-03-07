@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Supabase
+import RevenueCat
 
 @main
 struct HybridAIApp: App {
@@ -27,13 +28,24 @@ struct HybridAIApp: App {
         tabAppearance.shadowColor = .clear
         UITabBar.appearance().scrollEdgeAppearance = tabAppearance
         UITabBar.appearance().standardAppearance = tabAppearance
+        
+        Purchases.logLevel = .debug
+        Purchases.configure(withAPIKey: "appl_TiLqyOFybDZSeFcUaHdcpnoEIiS")
     }
     
     var body: some Scene {
         WindowGroup {
             CheckAuthentication()
-            .environmentObject(userViewModel)
+                .environmentObject(userViewModel)
+                .onOpenURL { url in
+                    handleIncomingURL(url)
+                }
         }
+    }
+    
+    func handleIncomingURL(_ url: URL) {
+        SupabaseService.shared.supabase.handle(url)
+        print("User signed in with magic link!")
     }
 }
 
@@ -43,7 +55,7 @@ struct CheckAuthentication: View {
     
     var body: some View {
         if userViewModel.isBusy {
-            VStack(spacing: 0) {
+            VStack(spacing: 20) {
                 Spacer()
                 
                 Image("hybridIconLandingPage")
@@ -59,10 +71,10 @@ struct CheckAuthentication: View {
             }
         } else {
             if userViewModel.isLoggedIn {
-                UserView()
+                LoggedInView()
                     .environmentObject(userViewModel)
             } else {
-                GoalView()
+                LandingPageCoordinatorView()
                     .environmentObject(userViewModel)
             }
         }
@@ -75,6 +87,9 @@ class UserViewModel: ObservableObject {
     
     @Published var event: AuthChangeEvent? = nil
     @Published var session: Session? = nil
+    
+    @Published var program: Program? = nil
+    @Published var isStarted = false
     
     init() {
         self.isBusy = true
@@ -93,6 +108,7 @@ class UserViewModel: ObservableObject {
             
             let authUser = try await SupabaseService.shared.supabase.auth.session.user
             
+            // MARK: Get user
             let user: User = try await SupabaseService.shared.supabase
                 .from("users")
                 .select()
@@ -103,16 +119,30 @@ class UserViewModel: ObservableObject {
             
             UserService.currentUser = user
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-                self.isLoggedIn = true
-                self.isBusy = false
+            // MARK: Get program
+            let program = try await ProgramService.shared.getProgram(uid: authUser.id.uuidString)
+            
+            self.program = program
+            
+            // Check is user started the program
+            if let startedProgramId = UserDefaults.standard.value(forKey: "startedProgram") as? String {
+                if startedProgramId == program.id {
+                    self.isStarted = true
+                }
             }
+            
+            self.isLoggedIn = true
+            self.isBusy = false
         } catch {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-                print(error)
-                self.isLoggedIn = false
-                self.isBusy = false
-            }
+            self.isLoggedIn = false
+            self.isBusy = false
         }
+    }
+}
+
+// Extension to hide keyboard
+extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }

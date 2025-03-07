@@ -13,13 +13,48 @@ class UserService {
     public static let shared = UserService()
     public static var currentUser: User? = nil
     
-    // MARK: Create user
-    public func createUser(user: User) async throws {
+    // MARK: Get user
+    public func getUser(uid: String) async throws -> User {
         do {
-            try await SupabaseService.shared.supabase
+            let user: User = try await SupabaseService.shared.supabase
+                .from("users")
+                .select(
+                    """
+                        id,
+                        created_at,
+                        email
+                    """
+                )
+                .eq("id", value: uid)
+                .single()
+                .execute()
+                .value
+            
+            return user
+        } catch {
+            print("Couldn't get user")
+            throw error
+        }
+    }
+    
+    // MARK: Create user
+    public func createUser(user: User) async throws -> User {
+        do {
+            let user: User = try await SupabaseService.shared.supabase
                 .from("users")
                 .insert(user)
+                .select(
+                    """
+                        id,
+                        created_at,
+                        email
+                    """
+                )
+                .single()
                 .execute()
+                .value
+            
+            return user
         } catch {
             print("Error creating user in database")
             throw error

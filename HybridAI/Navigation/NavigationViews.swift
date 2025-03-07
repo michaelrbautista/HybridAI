@@ -30,14 +30,14 @@ struct TrainingCoordinatorView: View {
     }
 }
 
-struct ProgramsCoordinatorView: View {
+struct SettingsCoordinatorView: View {
     
     @EnvironmentObject var userViewModel: UserViewModel
     @StateObject var navigationController: NavigationController = NavigationController()
     
     var body: some View {
         NavigationStack(path: $navigationController.path) {
-            navigationController.build(.ProgramsView)
+            navigationController.build(.SettingsView)
                 .environmentObject(userViewModel)
                 .navigationDestination(for: Screen.self) { screen in
                     navigationController.build(screen)
@@ -60,7 +60,7 @@ struct LandingPageCoordinatorView: View {
     
     var body: some View {
         NavigationStack(path: $navigationController.path) {
-            navigationController.build(.GoalView)
+            navigationController.build(.LandingPageView)
                 .environmentObject(userViewModel)
                 .navigationDestination(for: Screen.self) { screen in
                     navigationController.build(screen)

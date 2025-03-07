@@ -60,38 +60,49 @@ class NavigationController: CoordinatorProtocol {
     func build(_ screen: Screen) -> some View {
         switch screen {
         // Onboarding
-        case .GoalView:
-            GoalView()
-        case .WeeksView:
-            WeeksView()
+        case .LandingPageView:
+            LandingPageView()
         case .ExperienceView:
             ExperienceView()
-        case .EquipmentView:
-            EquipmentView()
-        case .ConfiguringView:
-            ConfiguringView()
-        case .BenefitsView:
-            BenefitsView()
-        case .CreateAccountView:
-            CreateAccountView()
-        case .OneTimeCodeView:
-            OneTimeCodeView()
+        case .GoalView(let viewModel):
+            GoalView(viewModel: viewModel)
+        case .RaceGoalTimeView(let viewModel):
+            RaceGoalTimeView(viewModel: viewModel)
+        case .PriorityView(let viewModel):
+            PriorityView(viewModel: viewModel)
+        case .EquipmentView(let viewModel):
+            EquipmentView(viewModel: viewModel)
+        case .WeeklyRuns(let viewModel):
+            WeeklyRunsView(viewModel: viewModel)
+        case .CurrentWeeklyMileage(let viewModel):
+            CurrentWeeklyMiles(viewModel: viewModel)
+        case .WeeklyLifts(let viewModel):
+            WeeklyLiftsView(viewModel: viewModel)
+        case .ConfiguringView(let viewModel):
+            ConfiguringView(viewModel: viewModel)
+            
+        // Auth
+        case .SignInView:
+            SignInView()
+        case .CreateAccountView(let viewModel):
+            CreateAccountView(viewModel: viewModel)
+        case .OneTimeCodeView(let isSignIn, let email):
+            OneTimeCodeView(isSignIn: isSignIn, email: email)
         
         // Training
         case .TrainingView:
             TrainingView()
         
         // Programs
-        case .ProgramsView:
-            ProgramsView()
-        case .ProgramDetailView:
-            ProgramDetailView()
-        case .CalendarView:
-            CalendarView()
-        case .RunDetailView:
-            RunDetailView()
-        case .WorkoutDetailView:
-            WorkoutDetailView()
+        case .ProgramDetailView(let viewModel):
+            ProgramDetailView(viewModel: viewModel)
+        case .CalendarView(let program):
+            CalendarView(
+                weeks: program.content.weeks.count,
+                pages: program.content.weeks.count / 4 + 1
+            )
+        case .WorkoutDetailView(let workout):
+            WorkoutDetailView(workout: workout)
         }
     }
     
@@ -101,8 +112,6 @@ class NavigationController: CoordinatorProtocol {
         switch sheet {
         case .ExerciseDetailView:
             ExerciseDetailView()
-        case .StartProgramView:
-            StartProgramView()
         case .SettingsView:
             SettingsView()
         }
@@ -111,8 +120,10 @@ class NavigationController: CoordinatorProtocol {
     @ViewBuilder
     func build(_ fullScreenCover: FullScreenCover) -> some View {
         switch fullScreenCover {
-        case .CreateProgram:
+        case .CreateProgramView:
             EmptyView()
+        case .PaywallView(let viewModel, let onDismiss):
+            PaywallView(viewModel: viewModel, onDismiss: onDismiss)
         }
     }
 }

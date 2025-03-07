@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftUI
+import RevenueCat
 
 extension Color {
     struct ColorSystem {
@@ -37,5 +38,15 @@ extension Font {
         static var footnote: Font { return Font.system(size: 13, weight: .regular, design: .default) }
         static var caption1: Font { return Font.system(size: 12, weight: .regular, design: .default) }
         static var caption2: Font { return Font.system(size: 11, weight: .regular, design: .default) }
+    }
+}
+
+extension SubscriptionPeriod {
+    var durationTitle: String {
+        switch self.unit {
+        case .month: return "month"
+        case .year: return "year"
+        default: return ""
+        }
     }
 }
