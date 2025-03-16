@@ -1,5 +1,5 @@
 //
-//  CurrentWeeklyMiles.swift
+//  BaselineMileageView.swift
 //  HybridAI
 //
 //  Created by Michael Bautista on 3/6/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CurrentWeeklyMiles: View {
+struct BaselineMileageView: View {
     @EnvironmentObject var navigationController: NavigationController
     @StateObject var viewModel: OnboardingViewModel
     
@@ -39,11 +39,11 @@ struct CurrentWeeklyMiles: View {
             .clipShape(RoundedRectangle(cornerRadius: 10))
             Spacer()
             StyledButton(
-                variant: viewModel.generalRunsPerWeek == 0 ? .disabled : .primary,
+                variant: viewModel.baselineMileage == "" ? .disabled : .primary,
                 text: "Next",
                 isLoading: .constant(false)
             ) {
-                navigationController.push(.CurrentWeeklyMileage(viewModel: viewModel))
+                navigationController.push(.LongRunView(viewModel: viewModel))
             }
         }
         .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
@@ -51,5 +51,5 @@ struct CurrentWeeklyMiles: View {
 }
 
 #Preview {
-    CurrentWeeklyMiles(viewModel: OnboardingViewModel())
+    BaselineMileageView(viewModel: OnboardingViewModel())
 }

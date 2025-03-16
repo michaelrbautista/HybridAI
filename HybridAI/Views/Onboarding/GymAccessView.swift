@@ -1,5 +1,5 @@
 //
-//  EquipmentView.swift
+//  GymAccessView.swift
 //  HybridAI
 //
 //  Created by Michael Bautista on 2/17/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct EquipmentView: View {
+struct GymAccessView: View {
     @EnvironmentObject var navigationController: NavigationController
     @StateObject var viewModel: OnboardingViewModel
     
@@ -32,22 +32,6 @@ struct EquipmentView: View {
                 ) {
                     viewModel.hasGymAccess = "No"
                 }
-                
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("If not, what do you have access to?")
-                        .font(Font.FontStyles.body)
-                        .foregroundStyle(Color.ColorSystem.systemGray)
-                    VStack {
-                        TextEditor(text: $viewModel.availableEquipment)
-                            .frame(maxHeight: 200)
-                            .frame(maxWidth: .infinity)
-                            .scrollContentBackground(.hidden)
-                            .disabled(viewModel.hasGymAccess != "No")
-                            .padding(EdgeInsets(top: 3, leading: 10, bottom: 3, trailing: 10))
-                    }
-                    .background(Color.ColorSystem.systemGray6)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                }
             }
             Spacer()
             StyledButton(
@@ -55,7 +39,7 @@ struct EquipmentView: View {
                 text: "Next",
                 isLoading: .constant(false)
             ) {
-                navigationController.push(.WeeklyRuns(viewModel: viewModel))
+                navigationController.push(.ConfiguringView(viewModel: viewModel))
             }
 
         }
@@ -64,5 +48,5 @@ struct EquipmentView: View {
 }
 
 #Preview {
-    EquipmentView(viewModel: OnboardingViewModel())
+    GymAccessView(viewModel: OnboardingViewModel())
 }
