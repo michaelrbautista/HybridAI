@@ -1,13 +1,13 @@
 //
-//  WorkoutDetailView.swift
+//  LiftDetailView.swift
 //  HybridAI
 //
-//  Created by Michael Bautista on 2/17/25.
+//  Created by Michael Bautista on 3/17/25.
 //
 
 import SwiftUI
 
-struct WorkoutDetailView: View {
+struct LiftDetailView: View {
     @EnvironmentObject var navigationController: NavigationController
     @EnvironmentObject var userViewModel: UserViewModel
     
@@ -35,5 +35,5 @@ struct WorkoutDetailView: View {
 }
 
 #Preview {
-    WorkoutDetailView(workout: Workout(type: .FullBody))
+    LiftDetailView(workout: Workout(type: .FullBody))
 }

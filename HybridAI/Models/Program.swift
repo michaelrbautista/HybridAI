@@ -26,19 +26,18 @@ struct ProgramContent: Codable, Hashable {
     var weeks: [Week]
 }
 
-struct Week: Codable, Identifiable, Hashable {
-    var id: UUID = UUID()
+struct Week: Codable, Hashable {
     var week: Int
+    var phase: String
     
     var days: [Day]
     
     enum CodingKeys: String, CodingKey {
-        case week, days
+        case week, phase, days
     }
 }
 
-struct Day: Codable, Identifiable, Hashable {
-    var id: UUID = UUID()
+struct Day: Codable, Hashable {
     var day: String
     
     var workouts: [Workout]
@@ -48,10 +47,14 @@ struct Day: Codable, Identifiable, Hashable {
     }
 }
 
-struct Workout: Codable, Identifiable, Hashable {
-    var id: UUID = UUID()
+struct Workout: Codable, Hashable {
     var type: String
+    
+    // Run
     var distance: Int?
+    
+    // For speed workout
+    var segments: [RunSegment]?
     
     // For lifts
     var exercises: [Exercise]?
@@ -59,6 +62,11 @@ struct Workout: Codable, Identifiable, Hashable {
     enum CodingKeys: String, CodingKey {
         case type, distance, exercises
     }
+}
+
+struct RunSegment: Codable, Hashable {
+    var distance: Double
+    var description: String
 }
 
 struct Exercise: Codable, Hashable {
