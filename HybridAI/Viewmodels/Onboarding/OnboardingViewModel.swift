@@ -12,17 +12,11 @@ import RevenueCat
 final class OnboardingViewModel: ObservableObject {
     
     @Published var experience = ""
-    @Published var goal = ""
-    @Published var raceGoalHours = ""
-    @Published var raceGoalMinutes = ""
+    @Published var daysPerWeek = ""
+    @Published var multiplePerDay = ""
     @Published var baselineMileage = ""
-    @Published var generalPriority = ""
     @Published var hasGymAccess = ""
-    @Published var availableEquipment = ""
-    @Published var generalRunsPerWeek = 0
-    @Published var generalLiftsPerWeek = 0
-    @Published var raceRunsPerWeek = 0
-    @Published var raceLiftsPerWeek = 0
+    @Published var longRunDay = ""
     
     @Published var isConfiguring = true
     @Published var readingBenefits = true

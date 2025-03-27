@@ -11,55 +11,67 @@ final class LowerAccessory {
     
     public func getExercise() -> Exercise {
         return exercises.randomElement() ?? Exercise(
-            name: "Calf raise",
-            isSingleLeg: true,
+            name: "Calf Raise",
+            isSingleLeg: false,
             baseSets: 4,
             buildSets: 4,
             peakSets: 3,
-            raceSets: 2,
-            baseReps: 12,
-            buildReps: 10,
-            peakReps: 8,
+            raceSets: 3,
+            baseReps: 10,
+            buildReps: 8,
+            peakReps: 6,
             raceReps: 4
         )
     }
     
     let exercises = [
         Exercise(
-            name: "Calf raise",
-            isSingleLeg: true,
+            name: "Calf Raise",
+            isSingleLeg: false,
             baseSets: 4,
             buildSets: 4,
             peakSets: 3,
-            raceSets: 2,
-            baseReps: 12,
-            buildReps: 10,
-            peakReps: 8,
+            raceSets: 3,
+            baseReps: 10,
+            buildReps: 8,
+            peakReps: 6,
             raceReps: 4
         ),
         Exercise(
-            name: "Bent knee calf raise",
-            isSingleLeg: true,
+            name: "Bent Knee Calf Raise",
+            isSingleLeg: false,
             baseSets: 4,
             buildSets: 4,
             peakSets: 3,
-            raceSets: 2,
-            baseReps: 12,
-            buildReps: 10,
-            peakReps: 8,
+            raceSets: 3,
+            baseReps: 10,
+            buildReps: 8,
+            peakReps: 6,
             raceReps: 4
         ),
         Exercise(
-            name: "Tibialis raise",
-            isSingleLeg: true,
+            name: "Tibialis Raise",
+            isSingleLeg: false,
             baseSets: 4,
             buildSets: 4,
             peakSets: 3,
-            raceSets: 2,
-            baseReps: 12,
-            buildReps: 10,
-            peakReps: 8,
+            raceSets: 3,
+            baseReps: 10,
+            buildReps: 8,
+            peakReps: 6,
             raceReps: 4
+        ),
+        Exercise(
+            name: "Barefoot Pogos",
+            isSingleLeg: false,
+            baseSets: 5,
+            buildSets: 5,
+            peakSets: 4,
+            raceSets: 4,
+            baseReps: 10,
+            buildReps: 8,
+            peakReps: 6,
+            raceReps: 6
         ),
     ]
 }

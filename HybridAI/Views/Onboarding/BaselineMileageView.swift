@@ -13,7 +13,7 @@ struct BaselineMileageView: View {
     
     var body: some View {
         VStack {
-            Text("How many miles a week are you comfortable running?")
+            Text("How many miles a week do you currently run?")
                 .font(Font.FontStyles.title2)
                 .foregroundStyle(Color.ColorSystem.primaryText)
                 .multilineTextAlignment(.center)

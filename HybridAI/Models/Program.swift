@@ -8,8 +8,14 @@
 import Foundation
 
 struct CreateProgramRequest: Codable, Hashable {
+    var programId: String?
     var title: String
     var content: ProgramContent
+    
+    enum CodingKeys: String, CodingKey {
+        case title, content
+        case programId = "id"
+    }
 }
 
 struct Program: Codable, Identifiable, Hashable {
@@ -28,7 +34,14 @@ struct ProgramContent: Codable, Hashable {
 
 struct Week: Codable, Hashable {
     var week: Int
-    var phase: String
+    var phase: ProgramPhase
+    
+    enum ProgramPhase: Codable {
+        case Base
+        case Build
+        case Peak
+        case Race
+    }
     
     var days: [Day]
     
@@ -37,40 +50,13 @@ struct Week: Codable, Hashable {
     }
 }
 
-struct Day: Codable, Hashable {
+struct Day: Codable, Identifiable, Hashable {
+    var id: UUID = UUID()
     var day: String
     
     var workouts: [Workout]
     
     enum CodingKeys: String, CodingKey {
-        case day, workouts
+        case id, day, workouts
     }
-}
-
-struct Workout: Codable, Hashable {
-    var type: String
-    
-    // Run
-    var distance: Int?
-    
-    // For speed workout
-    var segments: [RunSegment]?
-    
-    // For lifts
-    var exercises: [Exercise]?
-    
-    enum CodingKeys: String, CodingKey {
-        case type, distance, exercises
-    }
-}
-
-struct RunSegment: Codable, Hashable {
-    var distance: Double
-    var description: String
-}
-
-struct Exercise: Codable, Hashable {
-    var name: String
-    var sets: Int
-    var reps: Int
 }

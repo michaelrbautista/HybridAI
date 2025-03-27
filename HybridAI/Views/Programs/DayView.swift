@@ -16,26 +16,13 @@ struct DayView: View {
     var body: some View {
         Section {
             if workouts.count == 0 {
-                WorkoutCell(text: "No workouts.") {
-                    
-                }
+//                WorkoutCell(text: "No workouts.") {
+//                    
+//                }
             } else {
                 ForEach(workouts, id: \.self) { workout in
                     
-                    WorkoutCell(text: "Workout") {
-                        
-                    }
-//                    WorkoutCell {
-//                        if workout.distance != nil {
-//                            if workout.distance! > 0 {
-//                                Text("\(workout.distance!) miles")
-//                            } else {
-//                                Text("Lift")
-//                            }
-//                        } else {
-//                            Text("Lift")
-//                        }
-//                    } action: {
+//                    WorkoutCell(text: "Workout") {
 //                        
 //                    }
                 }

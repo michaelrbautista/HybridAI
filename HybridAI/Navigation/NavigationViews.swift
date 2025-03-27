@@ -53,6 +53,32 @@ struct SettingsCoordinatorView: View {
     }
 }
 
+struct NewProgramCoordinatorView: View {
+    
+    @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject var navigationController: NavigationController
+    
+    @StateObject var sheetNavigationController = SheetNavigationController()
+    
+    var body: some View {
+        NavigationStack(path: $sheetNavigationController.path) {
+            sheetNavigationController.build(.NewProgramView)
+                .environmentObject(userViewModel)
+                .navigationDestination(for: Screen.self) { screen in
+                    sheetNavigationController.build(screen)
+                }
+                .sheet(item: $sheetNavigationController.sheet) { sheet in
+                    sheetNavigationController.build(sheet)
+                }
+                .fullScreenCover(item: $sheetNavigationController.fullScreenCover) { fullScreenCover in
+                    sheetNavigationController.build(fullScreenCover)
+                }
+        }
+        .environmentObject(navigationController)
+        .environmentObject(sheetNavigationController)
+    }
+}
+
 struct LandingPageCoordinatorView: View {
     
     @EnvironmentObject var userViewModel: UserViewModel

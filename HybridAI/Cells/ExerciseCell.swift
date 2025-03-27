@@ -9,43 +9,36 @@ import SwiftUI
 
 struct ExerciseCell: View {
     
-    var exerciseNumber: Int?
-    var name: String
-    var sets: Int
-    var reps: Int
+    var exercise: Exercise
     
     var body: some View {
-        HStack(alignment: .top, spacing: 4) {
-            if let exerciseNumber = exerciseNumber {
-                Text("\(exerciseNumber).")
-                    .frame(alignment: .topLeading)
-                    .font(Font.FontStyles.headline)
-                    .foregroundStyle(Color.ColorSystem.primaryText)
-            }
-            
-            VStack(spacing: 4) {
-                Text(name)
+        Section {
+            VStack {
+                Text(exercise.name)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(Font.FontStyles.headline)
                     .foregroundStyle(Color.ColorSystem.primaryText)
                 
-                Text("\(sets) \(sets == 1 ? "set" : "sets")")
+                Text("\(exercise.baseSets) sets")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(Font.FontStyles.body)
                     .foregroundStyle(Color.ColorSystem.systemGray)
                 
-                Text("\(reps) \(reps == 1 ? "rep" : "reps")")
+                Text("\(exercise.baseReps) reps")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(Font.FontStyles.body)
                     .foregroundStyle(Color.ColorSystem.systemGray)
             }
-            
-            Spacer()
+            .listRowBackground(Color.ColorSystem.systemGray6)
         }
-        .padding(0)
     }
 }
 
 #Preview {
-    ExerciseCell(exerciseNumber: 1, name: "Test", sets: 1, reps: 1)
+    List {
+        ExerciseCell(exercise: Exercise(name: "Test exercise", isSingleLeg: false, baseSets: 0, buildSets: 0, peakSets: 0, raceSets: 0, baseReps: 0, buildReps: 0, peakReps: 0, raceReps: 0))
+        
+        ExerciseCell(exercise: Exercise(name: "Test exercise", isSingleLeg: false, baseSets: 0, buildSets: 0, peakSets: 0, raceSets: 0, baseReps: 0, buildReps: 0, peakReps: 0, raceReps: 0))
+    }
+    .listStyle(.insetGrouped)
 }

@@ -29,7 +29,7 @@ struct HybridAIApp: App {
         UITabBar.appearance().scrollEdgeAppearance = tabAppearance
         UITabBar.appearance().standardAppearance = tabAppearance
         
-        Purchases.logLevel = .debug
+        Purchases.logLevel = .error
         Purchases.configure(withAPIKey: "appl_TiLqyOFybDZSeFcUaHdcpnoEIiS")
     }
     
@@ -63,12 +63,14 @@ struct CheckAuthentication: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 200)
                 
-                Text("Hybrid AI")
-                    .font(Font.FontStyles.largeTitle)
+                Text("Hybrid Training Club")
+                    .font(Font.FontStyles.title1)
                     .foregroundStyle(Color.ColorSystem.primaryText)
+                    .multilineTextAlignment(.center)
                 
                 Spacer()
             }
+            .frame(width: 200)
         } else {
             if userViewModel.isLoggedIn {
                 LoggedInView()
@@ -88,8 +90,17 @@ class UserViewModel: ObservableObject {
     @Published var event: AuthChangeEvent? = nil
     @Published var session: Session? = nil
     
+    @Published var isLoading = false
+    
     @Published var program: Program? = nil
     @Published var isStarted = false
+    @Published var isInProgress = false
+    
+    #if DEBUG
+    @Published var nutritionPlan: NutritionPlan? = NutritionPlan(bmr: 1651, protein: 150, fat: 82, carbs: 78)
+    #else
+    @Published var nutritionPlan: NutritionPlan? = nil
+    #endif
     
     init() {
         self.isBusy = true
@@ -119,23 +130,54 @@ class UserViewModel: ObservableObject {
             
             UserService.currentUser = user
             
-            // MARK: Get program
-            let program = try await ProgramService.shared.getProgram(uid: authUser.id.uuidString)
-            
-            self.program = program
-            
-            // Check is user started the program
-            if let startedProgramId = UserDefaults.standard.value(forKey: "startedProgram") as? String {
-                if startedProgramId == program.id {
-                    self.isStarted = true
-                }
-            }
+            try await getProgramAndNutritionPlan(userId: authUser.id.uuidString)
             
             self.isLoggedIn = true
             self.isBusy = false
         } catch {
+            print(error)
             self.isLoggedIn = false
             self.isBusy = false
+        }
+    }
+    
+    @MainActor
+    public func getProgramAndNutritionPlan(userId: String) async throws {
+        self.isLoading = true
+        
+        do {
+            // MARK: Get program
+            let program = try await ProgramService.shared.getProgram(uid: userId)
+            
+            self.program = program
+            
+            // Check is user started the program
+            if let startDate = UserDefaults.standard.value(forKey: "startDate") as? Date {
+                self.isStarted = true
+                
+                let calendar = Calendar(identifier: .gregorian)
+                let daysSinceStarted = calendar.numberOfDaysBetween(startDate, and: Date.now)
+                
+                if daysSinceStarted >= 0 {
+                    self.isInProgress = true
+                }
+            }
+            
+            print(self.isStarted)
+            
+            
+            // MARK: Get nutrition plan
+            if let usersNutritionPlan = UserDefaults.standard.value(forKey: "nutritionPlan") {
+                let decoder = JSONDecoder()
+                if let decodedNutritionPlan = try? decoder.decode(NutritionPlan.self, from: usersNutritionPlan as! Data) {
+                    self.nutritionPlan = decodedNutritionPlan
+                }
+            }
+            
+            self.isLoading = false
+        } catch {
+            print(error)
+            self.isLoading = false
         }
     }
 }

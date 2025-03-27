@@ -96,7 +96,7 @@ struct StyledButton: View {
 #Preview {
     VStack {
         StyledButton(variant: .primary, text: "Test button", isLoading: .constant(false), action: {})
-        StyledButton(variant: .secondary, text: "Test button", isLoading: .constant(true), action: {})
+        StyledButton(variant: .secondary, text: "Test button", isLoading: .constant(false), action: {})
     }
     .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
 }

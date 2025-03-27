@@ -44,8 +44,8 @@ struct ProgramDetailView: View {
                 
                 // MARK: Workouts
                 if let weeks = viewModel.program?.content.weeks {
-                    ForEach(weeks) { week in
-                        WeekCell(weekNumber: week.week, days: week.days)
+                    ForEach(weeks, id: \.self) { week in
+                        WeekCell(isInSheet: false, weekNumber: week.week, phase: week.phase, days: week.days)
                     }
                 }
             }
@@ -64,7 +64,8 @@ struct ProgramDetailView: View {
                         } else {
                             Task {
                                 // Start program
-                                presentStartProgram.toggle()
+                                viewModel.startProgram()
+                                userViewModel.isStarted = true
                             }
                         }
                     } label: {
@@ -79,19 +80,16 @@ struct ProgramDetailView: View {
             .alert(Text("Are you sure you want to finish this program?"), isPresented: $presentFinishProgram) {
                 Button(role: .destructive) {
                     viewModel.finishProgram()
+                    userViewModel.isStarted = false
+                    userViewModel.isInProgress = false
+                    navigationController.popToRoot()
                 } label: {
                     Text("Yes")
                 }
             }
-            .sheet(isPresented: $presentStartProgram) {
-                StartProgramView(
-                    isStarted: $viewModel.isStarted,
-                    programId: viewModel.programId,
-                    weeks: viewModel.program!.content.weeks.count,
-                    pages: viewModel.program!.content.weeks.count / 4 + 1,
-                    remainder: viewModel.program!.content.weeks.count % 4
-                )
-            }
+//            .sheet(isPresented: $presentStartProgram) {
+//                StartProgramView()
+//            }
         }
     }
 }

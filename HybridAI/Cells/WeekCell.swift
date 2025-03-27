@@ -9,7 +9,9 @@ import SwiftUI
 
 struct WeekCell: View {
     
+    var isInSheet: Bool
     var weekNumber: Int
+    var phase: Week.ProgramPhase
     var days: [Day]
     
     var body: some View {
@@ -18,13 +20,13 @@ struct WeekCell: View {
                 .font(Font.FontStyles.headline)
                 .foregroundStyle(Color.ColorSystem.primaryText)
             
-            ForEach(days) { day in
-                DayCell(day: day)
+            ForEach(days, id: \.self) { day in
+                DayCell(isInSheet: isInSheet, day: day, phase: phase)
             }
         }
     }
 }
 
 #Preview {
-    WeekCell(weekNumber: 1, days: [Day]())
+    WeekCell(isInSheet: false, weekNumber: 1, phase: .Base, days: [Day]())
 }

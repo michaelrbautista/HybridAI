@@ -12,6 +12,21 @@ class ProgramService {
     
     public static let shared = ProgramService()
     
+    // MARK: Save program
+    public func saveProgram(program: CreateProgramRequest) async throws {
+        do {
+            try await SupabaseService.shared.supabase
+                .from("programs")
+                .upsert(program)
+                .execute()
+                .value
+        } catch {
+            print("Couldn't save new program.")
+            print(error)
+            throw error
+        }
+    }
+    
     // MARK: Get user's program
     public func getProgram(uid: String) async throws -> Program {
         do {
@@ -36,5 +51,4 @@ class ProgramService {
             throw error
         }
     }
-    
 }

@@ -63,7 +63,6 @@ struct PaywallView: View {
                     // Create program
                     if let packageForPurchase = viewModel.selectedPackage {
                         Purchases.shared.purchase(package: packageForPurchase) { transaction, customerInfo, error, userCancelled in
-                            
                             if customerInfo?.entitlements.all["pro"]?.isActive == true {
                                 
                             }

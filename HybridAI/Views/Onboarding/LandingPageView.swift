@@ -19,14 +19,17 @@ struct LandingPageView: View {
                 .frame(width: 200)
             
             VStack {
-                Text("Hybrid AI")
-                    .font(Font.FontStyles.largeTitle)
+                Text("Hybrid Training Club")
+                    .font(Font.FontStyles.title1)
                     .foregroundStyle(Color.ColorSystem.primaryText)
+                    .multilineTextAlignment(.center)
                 
                 Text("Personalized hybrid training programs")
                     .font(Font.FontStyles.headline)
-                    .foregroundStyle(Color.ColorSystem.primaryText)
+                    .foregroundStyle(Color.ColorSystem.systemGray)
+                    .multilineTextAlignment(.center)
             }
+            .frame(width: 200)
             
             VStack(spacing: 10) {
                 StyledButton(

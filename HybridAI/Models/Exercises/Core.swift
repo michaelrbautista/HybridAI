@@ -1,23 +1,23 @@
 //
-//  UpperAccessoryPush.swift
+//  Core.swift
 //  HybridAI
 //
-//  Created by Michael Bautista on 3/23/25.
+//  Created by Michael Bautista on 3/19/25.
 //
 
-final class UpperAccessoryPush {
+final class Core {
     
-    public static let shared = UpperAccessoryPush()
+    public static let shared = Core()
     
     public func getExercise(hasGymAccess: Bool) -> Exercise {
         if hasGymAccess {
             return gymExercises.randomElement() ?? Exercise(
-                name: "Tricep Extension",
+                name: "Hanging Knee Tucks",
                 isSingleLeg: false,
-                baseSets: 4,
-                buildSets: 4,
-                peakSets: 3,
-                raceSets: 3,
+                baseSets: 5,
+                buildSets: 5,
+                peakSets: 4,
+                raceSets: 4,
                 baseReps: 10,
                 buildReps: 8,
                 peakReps: 6,
@@ -25,7 +25,7 @@ final class UpperAccessoryPush {
             )
         } else {
             return bodyweightExercises.randomElement() ?? Exercise(
-                name: "Close Grip Push Ups",
+                name: "Hanging Knee Tucks",
                 isSingleLeg: false,
                 baseSets: 5,
                 buildSets: 5,
@@ -41,31 +41,43 @@ final class UpperAccessoryPush {
     
     let gymExercises = [
         Exercise(
-            name: "Tricep Extension",
-            isSingleLeg: false,
-            baseSets: 4,
-            buildSets: 4,
-            peakSets: 3,
-            raceSets: 3,
+            name: "Landmine Rotation",
+            isSingleLeg: true,
+            baseSets: 5,
+            buildSets: 5,
+            peakSets: 4,
+            raceSets: 4,
             baseReps: 10,
             buildReps: 8,
             peakReps: 6,
             raceReps: 6
         ),
         Exercise(
-            name: "Overhead Tricep Extension",
-            isSingleLeg: false,
-            baseSets: 4,
-            buildSets: 4,
-            peakSets: 3,
-            raceSets: 3,
+            name: "Weighted Russian Twist",
+            isSingleLeg: true,
+            baseSets: 5,
+            buildSets: 5,
+            peakSets: 4,
+            raceSets: 4,
             baseReps: 10,
             buildReps: 8,
             peakReps: 6,
             raceReps: 6
         ),
         Exercise(
-            name: "Diamond Push Ups",
+            name: "Kettlebell Halo",
+            isSingleLeg: true,
+            baseSets: 5,
+            buildSets: 5,
+            peakSets: 4,
+            raceSets: 4,
+            baseReps: 8,
+            buildReps: 6,
+            peakReps: 4,
+            raceReps: 4
+        ),
+        Exercise(
+            name: "Hanging Knee Tucks",
             isSingleLeg: false,
             baseSets: 5,
             buildSets: 5,
@@ -80,7 +92,7 @@ final class UpperAccessoryPush {
     
     let bodyweightExercises = [
         Exercise(
-            name: "Close Grip Push Ups",
+            name: "Deadbug",
             isSingleLeg: false,
             baseSets: 5,
             buildSets: 5,
@@ -92,19 +104,19 @@ final class UpperAccessoryPush {
             raceReps: 6
         ),
         Exercise(
-            name: "Diamond Push Ups",
+            name: "Sit Ups",
             isSingleLeg: false,
-            baseSets: 5,
-            buildSets: 5,
-            peakSets: 4,
-            raceSets: 4,
+            baseSets: 6,
+            buildSets: 6,
+            peakSets: 5,
+            raceSets: 5,
             baseReps: 10,
             buildReps: 8,
             peakReps: 6,
             raceReps: 6
         ),
         Exercise(
-            name: "Tricep Dips",
+            name: "Hanging Knee Tucks",
             isSingleLeg: false,
             baseSets: 5,
             buildSets: 5,

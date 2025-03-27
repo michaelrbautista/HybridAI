@@ -49,7 +49,7 @@ struct ExperienceView: View {
                 text: "Next",
                 isLoading: .constant(false)
             ) {
-                navigationController.push(.GoalView(viewModel: viewModel))
+                navigationController.push(.DaysTrainingView(viewModel: viewModel))
             }
 
         }

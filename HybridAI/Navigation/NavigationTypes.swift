@@ -12,13 +12,11 @@ enum Screen: Identifiable, Hashable {
     // Onboarding
     case LandingPageView
     case ExperienceView
-    case GoalView(viewModel: OnboardingViewModel)
-    case RaceGoalTimeView(viewModel: OnboardingViewModel)
-    case PriorityView(viewModel: OnboardingViewModel)
-    case EquipmentView(viewModel: OnboardingViewModel)
-    case WeeklyRuns(viewModel: OnboardingViewModel)
-    case CurrentWeeklyMileage(viewModel: OnboardingViewModel)
-    case WeeklyLifts(viewModel: OnboardingViewModel)
+    case DaysTrainingView(viewModel: OnboardingViewModel)
+    case MultiplePerDayView(viewModel: OnboardingViewModel)
+    case BaselineMileageView(viewModel: OnboardingViewModel)
+    case LongRunView(viewModel: OnboardingViewModel)
+    case GymAccessView(viewModel: OnboardingViewModel)
     case ConfiguringView(viewModel: OnboardingViewModel)
     
     // Auth
@@ -29,10 +27,17 @@ enum Screen: Identifiable, Hashable {
     // Training
     case TrainingView
     
+    // Settings
+    case SettingsView
+    
     // Programs
     case ProgramDetailView(viewModel: ProgramDetailViewModel)
     case CalendarView(program: Program)
-    case WorkoutDetailView(workout: Workout)
+    case WorkoutDetailView(workout: Workout, phase: Week.ProgramPhase)
+    
+    // New
+    case NewProgramView
+    case NewlyCreatedProgramView(viewModel: NewProgramViewModel)
     
     var id: Self { return self }
 }
@@ -63,14 +68,15 @@ extension Screen {
 enum Sheet: Identifiable, Hashable {
     
     case ExerciseDetailView
-    case SettingsView
+    
+    case NewProgramCoordinatorView
+    case NewNutritionPlanView
     
     var id: Self { return self }
 }
 
 // MARK: Full screen cover
 enum FullScreenCover: Identifiable, Hashable {
-    case CreateProgramView
     case PaywallView(viewModel: OnboardingViewModel, onDismiss: (() -> Void))
     
     var id: Self { return self }
@@ -82,8 +88,6 @@ extension FullScreenCover {
         switch self {
         case .PaywallView(_, _):
             hasher.combine("PaywallView")
-        default:
-            break
         }
     }
     
@@ -91,8 +95,6 @@ extension FullScreenCover {
     static func == (lhs: FullScreenCover, rhs: FullScreenCover) -> Bool {
         switch (lhs, rhs) {
         case (.PaywallView, .PaywallView):
-            return true
-        default:
             return true
         }
     }

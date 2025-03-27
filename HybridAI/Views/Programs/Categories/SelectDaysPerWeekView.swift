@@ -15,19 +15,12 @@ struct SelectDaysPerWeekView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Text("How many days a week do you want to run?")
+                Text("How many days a week do you want to train?")
                     .font(Font.FontStyles.title2)
                     .foregroundStyle(Color.ColorSystem.primaryText)
                     .multilineTextAlignment(.center)
                 Spacer()
                 VStack(spacing: 20) {
-                    SelectListRow(
-                        text: "3",
-                        selection: .constant("")
-                    ) {
-                        onSelect("3")
-                    }
-                    
                     SelectListRow(
                         text: "4",
                         selection: .constant("")

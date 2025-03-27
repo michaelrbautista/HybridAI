@@ -9,24 +9,41 @@ import SwiftUI
 
 final class StartProgramViewModel: ObservableObject {
     
-    public func startProgram(programId: String, startDate: (Int, String)) {
-        let days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
+    public func startProgram(startDate: Date) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE" // "EEEE" gives full day name, e.g., "Monday"
+        print(startDate)
+        let day = formatter.string(from: startDate)
         
-        guard let dayNumber = days.firstIndex(of: startDate.1) else {
-            print("Couldn't get number of days.")
-            return
+        // Calculate real start date based on entered start date
+        // If starting on Friday, real start date should be Monday
+        
+        var dayAdjustment = 0
+        
+        switch day {
+        case "Tuesday":
+            dayAdjustment = -1
+        case "Wednesday":
+            dayAdjustment = -2
+        case "Thursday":
+            dayAdjustment = -3
+        case "Friday":
+            dayAdjustment = -4
+        case "Saturday":
+            dayAdjustment = -5
+        case "Sunday":
+            dayAdjustment = -6
+        default:
+            break
         }
         
-        // Convert start date to number, then figure out how many days it's been since then
-        let startDayAsNumber = ((startDate.0 - 1) * 7) + dayNumber
+        let adjustedStartDate = Calendar.current.date(byAdding: .day, value: dayAdjustment, to: startDate)
         
-        UserDefaults.standard.set(programId, forKey: "startedProgram")
-        UserDefaults.standard.set(startDayAsNumber, forKey: "startDayAsNumber")
-        UserDefaults.standard.set(Date.now, forKey: "startDate")
+        UserDefaults.standard.set(adjustedStartDate, forKey: "startDate")
         
-//        let domain = Bundle.main.bundleIdentifier!
-//        UserDefaults.standard.removePersistentDomain(forName: domain)
-//        UserDefaults.standard.synchronize()
+//        let calendar = Calendar(identifier: .gregorian)
+//        let daysSinceStarted = calendar.numberOfDaysBetween(startDate, and: Date.now)
+//        print(daysSinceStarted)
     }
     
 }

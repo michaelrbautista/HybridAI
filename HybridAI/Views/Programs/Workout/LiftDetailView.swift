@@ -12,28 +12,36 @@ struct LiftDetailView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     
     var workout: Workout
+    var phase: Week.ProgramPhase
     
     var body: some View {
         List {
-            Text("Lift")
+            Text("\(workout.type.asString)")
                 .font(Font.FontStyles.title1)
                 .foregroundStyle(Color.ColorSystem.primaryText)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .multilineTextAlignment(.leading)
+                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                 .listRowBackground(Color.ColorSystem.systemBackground)
             
             if let exercises = workout.exercises {
-                ForEach(Array(exercises.enumerated()), id: \.offset) { index, exercise in
-                    ExerciseCell(exerciseNumber: index + 1, name: exercise.name, sets: exercise.sets, reps: exercise.reps)
-                        .listRowBackground(Color.ColorSystem.systemBackground)
+                ForEach(exercises.indices, id: \.self) { index in
+                    if exercises[index].count > 1 {
+                        SuperSetCell(
+                            firstExercise: exercises[index][0],
+                            secondExercise: exercises[index][1],
+                            sets: exercises[index][0].baseSets
+                        )
+                    } else {
+                        ExerciseCell(exercise: exercises[index][0])
+                    }
                 }
             }
         }
-        .listStyle(.plain)
+        .listStyle(.insetGrouped)
+        .scrollContentBackground(.hidden)
         .background(Color.ColorSystem.systemBackground)
     }
 }
 
 #Preview {
-    LiftDetailView(workout: Workout(type: .FullBody))
+    LiftDetailView(workout: Workout(type: .FullBody), phase: .Base)
 }

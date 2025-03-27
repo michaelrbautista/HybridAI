@@ -1,39 +1,39 @@
 //
-//  Jump.swift
+//  Hinge.swift
 //  HybridAI
 //
-//  Created by Michael Bautista on 3/24/25.
+//  Created by Michael Bautista on 3/19/25.
 //
 
-final class Jump {
+final class Hinge {
     
-    public static let shared = Jump()
+    public static let shared = Hinge()
     
     public func getExercise(hasGymAccess: Bool) -> Exercise {
         if hasGymAccess {
             return gymExercises.randomElement() ?? Exercise(
-                name: "Box Jump",
+                name: "Nordic Hamstring Curl",
                 isSingleLeg: false,
-                baseSets: 4,
-                buildSets: 4,
-                peakSets: 3,
-                raceSets: 3,
+                baseSets: 3,
+                buildSets: 3,
+                peakSets: 2,
+                raceSets: 2,
                 baseReps: 6,
                 buildReps: 5,
-                peakReps: 4,
+                peakReps: 3,
                 raceReps: 3
             )
         } else {
             return bodyweightExercises.randomElement() ?? Exercise(
-                name: "Squat Jump",
-                isSingleLeg: false,
+                name: "Cossack Good Morning",
+                isSingleLeg: true,
                 baseSets: 4,
                 buildSets: 4,
                 peakSets: 3,
                 raceSets: 3,
-                baseReps: 8,
-                buildReps: 6,
-                peakReps: 4,
+                baseReps: 10,
+                buildReps: 8,
+                peakReps: 6,
                 raceReps: 4
             )
         }
@@ -41,70 +41,19 @@ final class Jump {
     
     let gymExercises = [
         Exercise(
-            name: "Box Jump",
+            name: "Nordic Hamstring Curl",
             isSingleLeg: false,
-            baseSets: 4,
-            buildSets: 4,
-            peakSets: 3,
-            raceSets: 3,
+            baseSets: 3,
+            buildSets: 3,
+            peakSets: 2,
+            raceSets: 2,
             baseReps: 6,
             buildReps: 5,
-            peakReps: 4,
+            peakReps: 3,
             raceReps: 3
         ),
         Exercise(
-            name: "Depth Jump",
-            isSingleLeg: false,
-            baseSets: 4,
-            buildSets: 4,
-            peakSets: 3,
-            raceSets: 3,
-            baseReps: 6,
-            buildReps: 5,
-            peakReps: 4,
-            raceReps: 3
-        ),
-        Exercise(
-            name: "Squat Jump",
-            isSingleLeg: false,
-            baseSets: 4,
-            buildSets: 4,
-            peakSets: 3,
-            raceSets: 3,
-            baseReps: 8,
-            buildReps: 6,
-            peakReps: 4,
-            raceReps: 4
-        ),
-        Exercise(
-            name: "Skater Jump",
-            isSingleLeg: false,
-            baseSets: 4,
-            buildSets: 4,
-            peakSets: 3,
-            raceSets: 3,
-            baseReps: 8,
-            buildReps: 6,
-            peakReps: 4,
-            raceReps: 4
-        )
-    ]
-    
-    let bodyweightExercises = [
-        Exercise(
-            name: "Squat Jump",
-            isSingleLeg: false,
-            baseSets: 4,
-            buildSets: 4,
-            peakSets: 3,
-            raceSets: 3,
-            baseReps: 8,
-            buildReps: 6,
-            peakReps: 4,
-            raceReps: 4
-        ),
-        Exercise(
-            name: "Skater Jump",
+            name: "Single Leg RDL",
             isSingleLeg: true,
             baseSets: 4,
             buildSets: 4,
@@ -116,8 +65,47 @@ final class Jump {
             raceReps: 4
         ),
         Exercise(
-            name: "Lunge Jump",
+            name: "Single Leg Hip Thrust",
+            isSingleLeg: true,
+            baseSets: 4,
+            buildSets: 4,
+            peakSets: 3,
+            raceSets: 3,
+            baseReps: 10,
+            buildReps: 8,
+            peakReps: 6,
+            raceReps: 4
+        ),
+        Exercise(
+            name: "Kettlebell Swings",
             isSingleLeg: false,
+            baseSets: 5,
+            buildSets: 5,
+            peakSets: 4,
+            raceSets: 4,
+            baseReps: 10,
+            buildReps: 8,
+            peakReps: 6,
+            raceReps: 6
+        )
+    ]
+    
+    let bodyweightExercises = [
+        Exercise(
+            name: "Cossack Good Morning",
+            isSingleLeg: true,
+            baseSets: 4,
+            buildSets: 4,
+            peakSets: 3,
+            raceSets: 3,
+            baseReps: 10,
+            buildReps: 8,
+            peakReps: 6,
+            raceReps: 4
+        ),
+        Exercise(
+            name: "Single Leg RDL",
+            isSingleLeg: true,
             baseSets: 4,
             buildSets: 4,
             peakSets: 3,
@@ -128,16 +116,28 @@ final class Jump {
             raceReps: 4
         ),
         Exercise(
-            name: "Skater Squat Jump",
-            isSingleLeg: false,
+            name: "Single Leg Glute Bridge",
+            isSingleLeg: true,
             baseSets: 4,
             buildSets: 4,
             peakSets: 3,
             raceSets: 3,
-            baseReps: 6,
-            buildReps: 4,
-            peakReps: 3,
-            raceReps: 3
+            baseReps: 8,
+            buildReps: 6,
+            peakReps: 4,
+            raceReps: 4
+        ),
+        Exercise(
+            name: "Kickstand Squat",
+            isSingleLeg: true,
+            baseSets: 4,
+            buildSets: 4,
+            peakSets: 3,
+            raceSets: 3,
+            baseReps: 10,
+            buildReps: 8,
+            peakReps: 6,
+            raceReps: 4
         )
     ]
 }

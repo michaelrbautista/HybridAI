@@ -20,6 +20,13 @@ struct DaysPerWeekTrainingView: View {
             Spacer()
             VStack(spacing: 20) {
                 SelectListRow(
+                    text: "4",
+                    selection: $viewModel.daysPerWeek
+                ) {
+                    viewModel.daysPerWeek = "4"
+                }
+                
+                SelectListRow(
                     text: "5",
                     selection: $viewModel.daysPerWeek
                 ) {
@@ -39,7 +46,7 @@ struct DaysPerWeekTrainingView: View {
                 text: "Next",
                 isLoading: .constant(false)
             ) {
-                navigationController.push(.BaselineMileageView(viewModel: viewModel))
+                navigationController.push(.MultiplePerDayView(viewModel: viewModel))
             }
 
         }

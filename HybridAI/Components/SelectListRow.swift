@@ -37,10 +37,10 @@ struct SelectListRow: View {
                     
                     Spacer()
                 }
-                .buttonStyle(.plain)
                 .background(selection == text ? Color.ColorSystem.primaryText : Color.ColorSystem.systemGray6)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
             }
+            .buttonStyle(.plain)
         } else {
             HStack {
                 VStack(alignment: .leading) {
@@ -59,7 +59,6 @@ struct SelectListRow: View {
                 
                 Spacer()
             }
-            .buttonStyle(.plain)
             .background(Color.ColorSystem.systemGray6)
             .clipShape(RoundedRectangle(cornerRadius: 10))
         }

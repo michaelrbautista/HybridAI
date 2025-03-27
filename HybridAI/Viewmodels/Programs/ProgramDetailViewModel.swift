@@ -40,6 +40,11 @@ final class ProgramDetailViewModel: ObservableObject {
             
             self.program = program
             
+            // Check is user started the program
+            if UserDefaults.standard.value(forKey: "startDate") as? Date != nil {
+                self.isStarted = true
+            }
+            
             self.isLoading = false
         } catch {
             self.isLoading = false
@@ -48,11 +53,24 @@ final class ProgramDetailViewModel: ObservableObject {
         }
     }
     
+    // MARK: Start program
+    @MainActor
+    public func startProgram() {
+        let date = Date()
+        let calendar = Calendar.current
+        let weekday = calendar.component(.weekday, from: date)
+        
+        let daysUntilMonday = (9 - weekday) % 7  // 9 ensures Monday (2) is correctly handled
+        let nextMonday = calendar.date(byAdding: .day, value: daysUntilMonday == 0 ? 7 : daysUntilMonday, to: date) ?? date
+        
+        UserDefaults.standard.set(nextMonday, forKey: "startDate")
+        
+        self.isStarted = true
+    }
+    
     // MARK: Finish program
     @MainActor
     public func finishProgram() {
-        UserDefaults.standard.removeObject(forKey: "startedProgram")
-        UserDefaults.standard.removeObject(forKey: "startDayAsNumber")
         UserDefaults.standard.removeObject(forKey: "startDate")
         self.isStarted = false
     }

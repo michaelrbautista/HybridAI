@@ -21,27 +21,27 @@ enum GeneralStructure {
         case .OnePerWeekFourDaysAWeek:
             return [
                 [],
-                [WorkoutType.FullBodyPush],
+                [WorkoutType.UpperBody],
                 [WorkoutType.SpeedWorkout],
                 [],
-                [WorkoutType.FullBodyPull],
+                [WorkoutType.LowerBody],
                 [WorkoutType.LongRun]
             ]
         case .OnePerWeekFiveDaysAWeek:
             return [
                 [WorkoutType.EasyRun],
-                [WorkoutType.FullBodyPush],
+                [WorkoutType.UpperBody],
                 [WorkoutType.SpeedWorkout],
                 [],
-                [WorkoutType.FullBodyPull],
+                [WorkoutType.LowerBody],
                 [WorkoutType.LongRun]
             ]
         case .OnePerWeekSixDaysAWeek:
             return [
                 [WorkoutType.EasyRun],
-                [WorkoutType.FullBodyPush],
+                [WorkoutType.UpperBody],
                 [WorkoutType.SpeedWorkout],
-                [WorkoutType.FullBodyPull],
+                [WorkoutType.LowerBody],
                 [WorkoutType.FullBody],
                 [WorkoutType.LongRun]
             ]
@@ -50,28 +50,28 @@ enum GeneralStructure {
         case .Beginner:
             return [
                 [WorkoutType.EasyRun],
-                [WorkoutType.FullBodyPush],
+                [WorkoutType.UpperBody],
                 [WorkoutType.SpeedWorkout],
-                [WorkoutType.FullBodyPull],
+                [WorkoutType.LowerBody],
                 [WorkoutType.FullBody],
                 [WorkoutType.LongRun]
             ]
         case .Intermediate:
             return [
-                [WorkoutType.EasyRun, WorkoutType.FullBodyPush],
+                [WorkoutType.EasyRun, WorkoutType.UpperBody],
                 [WorkoutType.EasyRun],
-                [WorkoutType.SpeedWorkout, WorkoutType.FullBodyPull],
+                [WorkoutType.SpeedWorkout, WorkoutType.LowerBody],
                 [WorkoutType.EasyRun],
                 [WorkoutType.FullBody],
                 [WorkoutType.LongRun]
             ]
         case .Advanced:
             return [
-                [WorkoutType.EasyRun, WorkoutType.FullBodyPush],
-                [WorkoutType.EasyRun, WorkoutType.FullBodyPull],
-                [WorkoutType.SpeedWorkout, WorkoutType.FullBody],
+                [WorkoutType.EasyRun, WorkoutType.FullBody],
+                [WorkoutType.EasyRun, WorkoutType.UpperBody],
+                [WorkoutType.SpeedWorkout, WorkoutType.LowerBody],
                 [WorkoutType.EasyRun],
-                [WorkoutType.EasyRun, WorkoutType.Bodyweight],
+                [WorkoutType.EasyRun, WorkoutType.FullBodyBodyweight],
                 [WorkoutType.LongRun]
             ]
         }

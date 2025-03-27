@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// MARK: Navigation controller
+// MARK: Coordinator protocols
 protocol CoordinatorProtocol: ObservableObject {
     var path: NavigationPath { get set }
     var sheet: Sheet? { get set }
@@ -22,6 +22,7 @@ protocol CoordinatorProtocol: ObservableObject {
     func dismissFullScreenCover()
 }
 
+// MARK: Navigation controller
 class NavigationController: CoordinatorProtocol {
     @Published var path: NavigationPath = NavigationPath()
     @Published var sheet: Sheet? = nil
@@ -64,20 +65,16 @@ class NavigationController: CoordinatorProtocol {
             LandingPageView()
         case .ExperienceView:
             ExperienceView()
-        case .GoalView(let viewModel):
-            GoalView(viewModel: viewModel)
-        case .RaceGoalTimeView(let viewModel):
-            RaceGoalTimeView(viewModel: viewModel)
-        case .PriorityView(let viewModel):
-            PriorityView(viewModel: viewModel)
-        case .EquipmentView(let viewModel):
-            EquipmentView(viewModel: viewModel)
-        case .WeeklyRuns(let viewModel):
-            WeeklyRunsView(viewModel: viewModel)
-        case .CurrentWeeklyMileage(let viewModel):
-            CurrentWeeklyMiles(viewModel: viewModel)
-        case .WeeklyLifts(let viewModel):
-            WeeklyLiftsView(viewModel: viewModel)
+        case .DaysTrainingView(let viewModel):
+            DaysPerWeekTrainingView(viewModel: viewModel)
+        case .MultiplePerDayView(let viewModel):
+            MultiplePerDayView(viewModel: viewModel)
+        case .BaselineMileageView(let viewModel):
+            BaselineMileageView(viewModel: viewModel)
+        case .LongRunView(let viewModel):
+            LongRunView(viewModel: viewModel)
+        case .GymAccessView(let viewModel):
+            GymAccessView(viewModel: viewModel)
         case .ConfiguringView(let viewModel):
             ConfiguringView(viewModel: viewModel)
             
@@ -92,6 +89,10 @@ class NavigationController: CoordinatorProtocol {
         // Training
         case .TrainingView:
             TrainingView()
+            
+        // Settings
+        case .SettingsView:
+            SettingsView()
         
         // Programs
         case .ProgramDetailView(let viewModel):
@@ -101,8 +102,14 @@ class NavigationController: CoordinatorProtocol {
                 weeks: program.content.weeks.count,
                 pages: program.content.weeks.count / 4 + 1
             )
-        case .WorkoutDetailView(let workout):
-            WorkoutDetailView(workout: workout)
+        case .WorkoutDetailView(let workout, let phase):
+            WorkoutDetailView(workout: workout, phase: phase)
+            
+        // New
+        case .NewProgramView:
+            NewProgramView()
+        case .NewlyCreatedProgramView(let viewModel):
+            NewlyCreatedProgramView(viewModel: viewModel)
         }
     }
     
@@ -112,18 +119,101 @@ class NavigationController: CoordinatorProtocol {
         switch sheet {
         case .ExerciseDetailView:
             ExerciseDetailView()
-        case .SettingsView:
-            SettingsView()
+        case .NewProgramCoordinatorView:
+            NewProgramCoordinatorView()
+        case .NewNutritionPlanView:
+            NewNutritionPlanView()
+        }
+    }
+    
+    // MARK: Fullscreen cover views
+    @ViewBuilder
+    func build(_ fullScreenCover: FullScreenCover) -> some View {
+        switch fullScreenCover {
+        case .PaywallView(let viewModel, let onDismiss):
+            PaywallView(viewModel: viewModel, onDismiss: onDismiss)
+        }
+    }
+}
+
+// MARK: Sheet coordinator protocols
+protocol SheetCoordinatorProtocol: ObservableObject {
+    var path: NavigationPath { get set }
+    var sheet: Sheet? { get set }
+    var fullScreenCover: FullScreenCover? { get set }
+
+    func push(_ screen:  Screen)
+    func pop()
+    func popToRoot()
+    func presentSheet(_ sheet: Sheet)
+    func dismissSheet()
+    func presentFullScreenCover(_ fullScreenCover: FullScreenCover)
+    func dismissFullScreenCover()
+}
+
+// MARK: Sheet navigation controller
+class SheetNavigationController: CoordinatorProtocol {
+    @Published var path: NavigationPath = NavigationPath()
+    @Published var sheet: Sheet? = nil
+    @Published var fullScreenCover: FullScreenCover? = nil
+    
+    func push(_ screen: Screen) {
+        path.append(screen)
+    }
+    
+    func presentSheet(_ sheet: Sheet) {
+        self.sheet = sheet
+    }
+    
+    func presentFullScreenCover(_ fullScreenCover: FullScreenCover) {
+        self.fullScreenCover = fullScreenCover
+    }
+    
+    func pop() {
+        path.removeLast()
+    }
+    
+    func popToRoot() {
+        path.removeLast(path.count)
+    }
+    
+    func dismissSheet() {
+        self.sheet = nil
+    }
+    
+    func dismissFullScreenCover() {
+        self.fullScreenCover = nil
+    }
+    
+    // MARK: - Screen views
+    @ViewBuilder
+    func build(_ screen: Screen) -> some View {
+        switch screen {
+        case .NewProgramView:
+            NewProgramView()
+        case .NewlyCreatedProgramView(let viewModel):
+            NewlyCreatedProgramView(viewModel: viewModel)
+        case .WorkoutDetailView(let workout, let phase):
+            WorkoutDetailView(workout: workout, phase: phase)
+        default:
+            Text("There was an error. Please try again later.")
+        }
+    }
+    
+    // MARK: Sheet views
+    @ViewBuilder
+    func build(_ sheet: Sheet) -> some View {
+        switch sheet {
+        default:
+            Text("There was an error. Please try again later.")
         }
     }
     
     @ViewBuilder
     func build(_ fullScreenCover: FullScreenCover) -> some View {
         switch fullScreenCover {
-        case .CreateProgramView:
-            EmptyView()
-        case .PaywallView(let viewModel, let onDismiss):
-            PaywallView(viewModel: viewModel, onDismiss: onDismiss)
+        default:
+            Text("There was an error. Please try again later.")
         }
     }
 }

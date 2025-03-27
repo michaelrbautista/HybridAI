@@ -1,18 +1,18 @@
 //
-//  UpperAccessoryPush.swift
+//  Squat.swift
 //  HybridAI
 //
-//  Created by Michael Bautista on 3/23/25.
+//  Created by Michael Bautista on 3/19/25.
 //
 
-final class UpperAccessoryPush {
+final class Squat {
     
-    public static let shared = UpperAccessoryPush()
+    public static let shared = Squat()
     
     public func getExercise(hasGymAccess: Bool) -> Exercise {
         if hasGymAccess {
             return gymExercises.randomElement() ?? Exercise(
-                name: "Tricep Extension",
+                name: "Goblet Squat",
                 isSingleLeg: false,
                 baseSets: 4,
                 buildSets: 4,
@@ -21,27 +21,27 @@ final class UpperAccessoryPush {
                 baseReps: 10,
                 buildReps: 8,
                 peakReps: 6,
-                raceReps: 6
+                raceReps: 5
             )
         } else {
             return bodyweightExercises.randomElement() ?? Exercise(
-                name: "Close Grip Push Ups",
+                name: "Bodyweight Squat",
                 isSingleLeg: false,
                 baseSets: 5,
                 buildSets: 5,
                 peakSets: 4,
                 raceSets: 4,
-                baseReps: 10,
-                buildReps: 8,
-                peakReps: 6,
-                raceReps: 6
+                baseReps: 20,
+                buildReps: 16,
+                peakReps: 10,
+                raceReps: 8
             )
         }
     }
     
     let gymExercises = [
         Exercise(
-            name: "Tricep Extension",
+            name: "Goblet Squat",
             isSingleLeg: false,
             baseSets: 4,
             buildSets: 4,
@@ -50,11 +50,11 @@ final class UpperAccessoryPush {
             baseReps: 10,
             buildReps: 8,
             peakReps: 6,
-            raceReps: 6
+            raceReps: 5
         ),
         Exercise(
-            name: "Overhead Tricep Extension",
-            isSingleLeg: false,
+            name: "ATG Split Squat",
+            isSingleLeg: true,
             baseSets: 4,
             buildSets: 4,
             peakSets: 3,
@@ -62,57 +62,81 @@ final class UpperAccessoryPush {
             baseReps: 10,
             buildReps: 8,
             peakReps: 6,
-            raceReps: 6
+            raceReps: 5
         ),
         Exercise(
-            name: "Diamond Push Ups",
-            isSingleLeg: false,
-            baseSets: 5,
-            buildSets: 5,
-            peakSets: 4,
-            raceSets: 4,
+            name: "Bulgarian Split Squat",
+            isSingleLeg: true,
+            baseSets: 4,
+            buildSets: 4,
+            peakSets: 3,
+            raceSets: 3,
             baseReps: 10,
             buildReps: 8,
             peakReps: 6,
-            raceReps: 6
+            raceReps: 5
+        ),
+        Exercise(
+            name: "Weighted Lunge Walk",
+            isSingleLeg: true,
+            baseSets: 4,
+            buildSets: 4,
+            peakSets: 3,
+            raceSets: 3,
+            baseReps: 8,
+            buildReps: 6,
+            peakReps: 4,
+            raceReps: 4
         )
     ]
     
     let bodyweightExercises = [
         Exercise(
-            name: "Close Grip Push Ups",
+            name: "Bodyweight Squat",
             isSingleLeg: false,
             baseSets: 5,
             buildSets: 5,
             peakSets: 4,
             raceSets: 4,
-            baseReps: 10,
-            buildReps: 8,
-            peakReps: 6,
+            baseReps: 12,
+            buildReps: 10,
+            peakReps: 8,
             raceReps: 6
         ),
         Exercise(
-            name: "Diamond Push Ups",
+            name: "Sissy Squat",
             isSingleLeg: false,
             baseSets: 5,
             buildSets: 5,
             peakSets: 4,
             raceSets: 4,
-            baseReps: 10,
-            buildReps: 8,
-            peakReps: 6,
+            baseReps: 12,
+            buildReps: 10,
+            peakReps: 8,
             raceReps: 6
         ),
         Exercise(
-            name: "Tricep Dips",
-            isSingleLeg: false,
+            name: "Cossack Squat",
+            isSingleLeg: true,
             baseSets: 5,
             buildSets: 5,
             peakSets: 4,
             raceSets: 4,
-            baseReps: 10,
-            buildReps: 8,
-            peakReps: 6,
+            baseReps: 12,
+            buildReps: 10,
+            peakReps: 8,
+            raceReps: 6
+        ),
+        Exercise(
+            name: "ATG Split Squat",
+            isSingleLeg: true,
+            baseSets: 4,
+            buildSets: 4,
+            peakSets: 3,
+            raceSets: 3,
+            baseReps: 12,
+            buildReps: 10,
+            peakReps: 8,
             raceReps: 6
         )
     ]
