@@ -33,6 +33,7 @@ final class NewProgramViewModel: ObservableObject {
     @Published var returnedError = false
     @Published var errorMessage = ""
     
+    // MARK: Save program
     @MainActor
     public func saveNewProgram(currentProgramId: String?) async {
         guard let programContent = self.newProgram?.content, let programTitle = self.newProgram?.title else {
@@ -58,6 +59,7 @@ final class NewProgramViewModel: ObservableObject {
         }
     }
     
+    // MARK: Create program
     public func createGeneralProgram() {
         self.isCreating = true
         

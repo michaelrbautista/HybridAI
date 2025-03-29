@@ -24,7 +24,7 @@ struct DayCell: View {
             if day.workouts.count > 0 {
                 VStack(alignment: .leading, spacing: 5) {
                     ForEach(day.workouts, id: \.self) { workout in
-                        WorkoutCell(
+                        ProgramWorkoutCell(
                             workout: workout
                         ) {
                             if workout.type == .EasyRun || workout.type == .SpeedWorkout || workout.type == .LongRun {

@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import SuperwallKit
 
 struct NewlyCreatedProgramView: View {
     @EnvironmentObject var navigationController: NavigationController
     @EnvironmentObject var sheetNavigationController: SheetNavigationController
     @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject var programViewModel: ProgramViewModel
     
     @StateObject var viewModel: NewProgramViewModel
     
@@ -27,9 +29,34 @@ struct NewlyCreatedProgramView: View {
             
             // MARK: Workouts
             if let weeks = viewModel.newProgram?.content.weeks {
-                ForEach(weeks, id: \.self) { week in
-                    WeekCell(isInSheet: true, weekNumber: week.week, phase: week.phase, days: week.days)
+                // MARK: Workouts
+                if userViewModel.isSubscribed {
+                    ForEach(weeks, id: \.self) { week in
+                        WeekCell(isInSheet: true, weekNumber: week.week, phase: week.phase, days: week.days)
+                            .listRowBackground(Color.ColorSystem.systemBackground)
+                    }
+                } else {
+                    if let weekOne = viewModel.newProgram?.content.weeks[0] {
+                        WeekCell(isInSheet: false, weekNumber: weekOne.week, phase: weekOne.phase, days: weekOne.days)
+                            .listRowBackground(Color.ColorSystem.systemBackground)
+                        
+                        StyledButton(
+                            variant: .primary,
+                            text: "Unlock the rest of the program",
+                            isLoading: .constant(false)
+                        ) {
+                            Superwall.shared.register(placement: "campaign_trigger")
+                        }
+                        .buttonStyle(.plain)
+                        .listRowSeparator(.hidden)
                         .listRowBackground(Color.ColorSystem.systemBackground)
+                        
+                        Rectangle()
+                            .frame(height: 40)
+                            .foregroundStyle(Color.ColorSystem.systemBackground)
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.ColorSystem.systemBackground)
+                    }
                 }
             }
         }
@@ -40,15 +67,10 @@ struct NewlyCreatedProgramView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     Task {
-                        guard let currentUserId = UserService.currentUser?.id else {
-                            print("Couldn't get current user.")
-                            return
-                        }
-                        
-                        await viewModel.saveNewProgram(currentProgramId: userViewModel.program?.id)
+                        await viewModel.saveNewProgram(currentProgramId: programViewModel.program?.id)
                         
                         if viewModel.returnedError == false {
-                            userViewModel.program = viewModel.newProgram
+                            programViewModel.program = viewModel.newProgram
                             
                             navigationController.dismissSheet()
                         }

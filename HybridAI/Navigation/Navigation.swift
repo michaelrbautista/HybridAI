@@ -83,8 +83,8 @@ class NavigationController: CoordinatorProtocol {
             SignInView()
         case .CreateAccountView(let viewModel):
             CreateAccountView(viewModel: viewModel)
-        case .OneTimeCodeView(let isSignIn, let email):
-            OneTimeCodeView(isSignIn: isSignIn, email: email)
+        case .OneTimeCodeView(let viewModel, let isSignIn, let email):
+            OneTimeCodeView(viewModel: viewModel, isSignIn: isSignIn, email: email)
         
         // Training
         case .TrainingView:
@@ -95,8 +95,8 @@ class NavigationController: CoordinatorProtocol {
             SettingsView()
         
         // Programs
-        case .ProgramDetailView(let viewModel):
-            ProgramDetailView(viewModel: viewModel)
+        case .ProgramDetailView:
+            ProgramDetailView()
         case .CalendarView(let program):
             CalendarView(
                 weeks: program.content.weeks.count,

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SuperwallKit
 
 struct SettingsView: View {
     @EnvironmentObject var navigationController: NavigationController
@@ -19,16 +20,24 @@ struct SettingsView: View {
     var body: some View {
         List {
             Section {
-                CoordinatorLink {
-                    Text("View current program")
-                        .font(Font.FontStyles.body)
-                        .foregroundStyle(Color.ColorSystem.primaryText)
-                } action: {
-                    if let programId = userViewModel.program?.id {
-                        navigationController.push(.ProgramDetailView(viewModel: ProgramDetailViewModel(programId: programId)))
+                if userViewModel.program != nil {
+                    CoordinatorLink {
+                        Text("View current program")
+                            .font(Font.FontStyles.body)
+                            .foregroundStyle(Color.ColorSystem.primaryText)
+                    } action: {
+                        navigationController.push(.ProgramDetailView)
                     }
+                } else {
+                    CoordinatorLink {
+                        Text("You haven't created a program yet.")
+                            .font(Font.FontStyles.body)
+                            .foregroundStyle(Color.ColorSystem.systemGray)
+                    } action: {
+                        
+                    }
+                    .disabled(true)
                 }
-                .disabled(userViewModel.program == nil)
                 
                 CoordinatorLink {
                     Text("New program")
@@ -37,14 +46,17 @@ struct SettingsView: View {
                 } action: {
                     navigationController.presentSheet(.NewProgramCoordinatorView)
                 }
-                
-//                CoordinatorLink {
-//                    Text("New nutrition plan")
-//                        .font(Font.FontStyles.body)
-//                        .foregroundStyle(Color.ColorSystem.primaryText)
-//                } action: {
-//                    navigationController.presentSheet(.NewNutritionPlanView)
-//                }
+            }
+            
+            Section {
+                Button {
+                    Superwall.shared.register(placement: "campaign_trigger")
+                } label: {
+                    Text("Unlock my program")
+                        .font(Font.FontStyles.headline)
+                        .foregroundStyle(Color.ColorSystem.primaryText)
+                }
+                .listRowBackground(Color.ColorSystem.systemBlue)
             }
             
             Section {

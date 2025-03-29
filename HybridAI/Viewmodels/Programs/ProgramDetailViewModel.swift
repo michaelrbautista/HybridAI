@@ -12,6 +12,8 @@ final class ProgramDetailViewModel: ObservableObject {
     var programId: String
     var program: Program? = nil
     
+    @Published var isSubscribed = false
+    
     @Published var isLoading = true
     @Published var isStarted = false
     
@@ -39,6 +41,9 @@ final class ProgramDetailViewModel: ObservableObject {
             let program = try await ProgramService.shared.getProgram(uid: currentUserId)
             
             self.program = program
+            
+            // Check if user is subscribed
+            self.isSubscribed = try await RevenueCatService.shared.checkSubscription()
             
             // Check is user started the program
             if UserDefaults.standard.value(forKey: "startDate") as? Date != nil {

@@ -22,7 +22,7 @@ enum Screen: Identifiable, Hashable {
     // Auth
     case SignInView
     case CreateAccountView(viewModel: OnboardingViewModel)
-    case OneTimeCodeView(isSignIn: Bool, email: String)
+    case OneTimeCodeView(viewModel: OnboardingViewModel, isSignIn: Bool, email: String)
     
     // Training
     case TrainingView
@@ -31,7 +31,7 @@ enum Screen: Identifiable, Hashable {
     case SettingsView
     
     // Programs
-    case ProgramDetailView(viewModel: ProgramDetailViewModel)
+    case ProgramDetailView
     case CalendarView(program: Program)
     case WorkoutDetailView(workout: Workout, phase: Week.ProgramPhase)
     

@@ -11,6 +11,7 @@ import Supabase
 struct OneTimeCodeView: View {
     @EnvironmentObject var navigationController: NavigationController
     @EnvironmentObject var userViewModel: UserViewModel
+    @StateObject var viewModel: OnboardingViewModel
     
     var isSignIn: Bool
     var email: String
@@ -90,6 +91,9 @@ struct OneTimeCodeView: View {
                             
                             
                             UserService.currentUser = user
+                            
+                            // Save program
+                            await viewModel.saveNewProgram(currentProgramId: nil)
                         }
                         
                         userViewModel.isLoggedIn = true
@@ -110,5 +114,5 @@ struct OneTimeCodeView: View {
 }
 
 #Preview {
-    OneTimeCodeView(isSignIn: true, email: "email@email.com", code: "")
+    OneTimeCodeView(viewModel: OnboardingViewModel(), isSignIn: true, email: "email@email.com", code: "")
 }

@@ -8,11 +8,13 @@
 import SwiftUI
 import Supabase
 import RevenueCat
+import SuperwallKit
 
 @main
 struct HybridAIApp: App {
     
     @StateObject var userViewModel = UserViewModel()
+    @StateObject var programViewModel = ProgramViewModel()
     
     init() {
         let navAppearance = UINavigationBarAppearance()
@@ -29,14 +31,26 @@ struct HybridAIApp: App {
         UITabBar.appearance().scrollEdgeAppearance = tabAppearance
         UITabBar.appearance().standardAppearance = tabAppearance
         
+        let purchaseController = RCPurchaseController()
+        
+        Superwall.configure(
+            apiKey: "pk_6330fd17890e685efd53e1421a750856d70c40a778515770",
+            purchaseController: purchaseController
+        )
+        
         Purchases.logLevel = .error
-        Purchases.configure(withAPIKey: "appl_TiLqyOFybDZSeFcUaHdcpnoEIiS")
+        Purchases.configure(with:
+            .builder(withAPIKey: "appl_TiLqyOFybDZSeFcUaHdcpnoEIiS")
+            .with(purchasesAreCompletedBy: .myApp, storeKitVersion: .storeKit1)
+            .build()
+        )
     }
     
     var body: some Scene {
         WindowGroup {
             CheckAuthentication()
                 .environmentObject(userViewModel)
+                .environmentObject(programViewModel)
                 .onOpenURL { url in
                     handleIncomingURL(url)
                 }
@@ -52,9 +66,10 @@ struct HybridAIApp: App {
 struct CheckAuthentication: View {
     
     @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject var programViewModel: ProgramViewModel
     
     var body: some View {
-        if userViewModel.isBusy {
+        if userViewModel.isLoading || programViewModel.isLoading {
             VStack(spacing: 20) {
                 Spacer()
                 
@@ -79,105 +94,6 @@ struct CheckAuthentication: View {
                 LandingPageCoordinatorView()
                     .environmentObject(userViewModel)
             }
-        }
-    }
-}
-
-class UserViewModel: ObservableObject {
-    @Published var isLoggedIn = false
-    @Published var isBusy = false
-    
-    @Published var event: AuthChangeEvent? = nil
-    @Published var session: Session? = nil
-    
-    @Published var isLoading = false
-    
-    @Published var program: Program? = nil
-    @Published var isStarted = false
-    @Published var isInProgress = false
-    
-    #if DEBUG
-    @Published var nutritionPlan: NutritionPlan? = NutritionPlan(bmr: 1651, protein: 150, fat: 82, carbs: 78)
-    #else
-    @Published var nutritionPlan: NutritionPlan? = nil
-    #endif
-    
-    init() {
-        self.isBusy = true
-        
-        Task {
-            await checkAuth()
-        }
-    }
-    
-    @MainActor
-    public func checkAuth() async {
-        self.isBusy = true
-        
-        do {
-            let _ = try await SupabaseService.shared.supabase.auth.session
-            
-            let authUser = try await SupabaseService.shared.supabase.auth.session.user
-            
-            // MARK: Get user
-            let user: User = try await SupabaseService.shared.supabase
-                .from("users")
-                .select()
-                .eq("id", value: authUser.id)
-                .single()
-                .execute()
-                .value
-            
-            UserService.currentUser = user
-            
-            try await getProgramAndNutritionPlan(userId: authUser.id.uuidString)
-            
-            self.isLoggedIn = true
-            self.isBusy = false
-        } catch {
-            print(error)
-            self.isLoggedIn = false
-            self.isBusy = false
-        }
-    }
-    
-    @MainActor
-    public func getProgramAndNutritionPlan(userId: String) async throws {
-        self.isLoading = true
-        
-        do {
-            // MARK: Get program
-            let program = try await ProgramService.shared.getProgram(uid: userId)
-            
-            self.program = program
-            
-            // Check is user started the program
-            if let startDate = UserDefaults.standard.value(forKey: "startDate") as? Date {
-                self.isStarted = true
-                
-                let calendar = Calendar(identifier: .gregorian)
-                let daysSinceStarted = calendar.numberOfDaysBetween(startDate, and: Date.now)
-                
-                if daysSinceStarted >= 0 {
-                    self.isInProgress = true
-                }
-            }
-            
-            print(self.isStarted)
-            
-            
-            // MARK: Get nutrition plan
-            if let usersNutritionPlan = UserDefaults.standard.value(forKey: "nutritionPlan") {
-                let decoder = JSONDecoder()
-                if let decodedNutritionPlan = try? decoder.decode(NutritionPlan.self, from: usersNutritionPlan as! Data) {
-                    self.nutritionPlan = decodedNutritionPlan
-                }
-            }
-            
-            self.isLoading = false
-        } catch {
-            print(error)
-            self.isLoading = false
         }
     }
 }

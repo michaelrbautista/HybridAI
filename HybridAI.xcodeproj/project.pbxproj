@@ -74,13 +74,12 @@
 		8941E3A42D809DD3009FF924 /* SelectGenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8941E3A32D809DD3009FF924 /* SelectGenderView.swift */; };
 		8941E3A62D80C881009FF924 /* NutritionPlanCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8941E3A52D80C881009FF924 /* NutritionPlanCells.swift */; };
 		8962A86A2D765E0E00E86C7D /* ProgramService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8962A8692D765E0B00E86C7D /* ProgramService.swift */; };
-		8962A86D2D765E9600E86C7D /* TrainingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8962A86C2D765E9300E86C7D /* TrainingViewModel.swift */; };
 		8962A8702D76613E00E86C7D /* ProgramDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8962A86F2D76613A00E86C7D /* ProgramDetailViewModel.swift */; };
 		8962A8722D7661E500E86C7D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8962A8712D7661E500E86C7D /* ErrorView.swift */; };
 		8962A8742D7665D000E86C7D /* StartProgramViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8962A8732D7665CC00E86C7D /* StartProgramViewModel.swift */; };
 		8962A8762D76691200E86C7D /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8962A8752D76691200E86C7D /* DayView.swift */; };
 		8962A8782D76692E00E86C7D /* DayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8962A8772D76692C00E86C7D /* DayViewModel.swift */; };
-		8962A87B2D76699B00E86C7D /* WorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8962A87A2D76699B00E86C7D /* WorkoutCell.swift */; };
+		8962A87B2D76699B00E86C7D /* ProgramWorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8962A87A2D76699B00E86C7D /* ProgramWorkoutCell.swift */; };
 		8962A8812D776FE800E86C7D /* WeekCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8962A8802D776FE800E86C7D /* WeekCell.swift */; };
 		8962A8832D77719C00E86C7D /* DayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8962A8822D77719C00E86C7D /* DayCell.swift */; };
 		8962A8862D778BA300E86C7D /* ExerciseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8962A8852D778BA300E86C7D /* ExerciseCell.swift */; };
@@ -112,6 +111,13 @@
 		89B574132D70E49400B31183 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = 89B574122D70E49400B31183 /* RevenueCatUI */; };
 		89B78EC92D666CC9004D0857 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B78EC82D666CC5004D0857 /* OnboardingViewModel.swift */; };
 		89CAAEEF2D67B570006F516B /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CAAEEE2D67B570006F516B /* PaywallView.swift */; };
+		89CEF13E2D960B280011CBAA /* SuperwallKit in Frameworks */ = {isa = PBXBuildFile; productRef = 89CEF13D2D960B280011CBAA /* SuperwallKit */; };
+		89CEF1412D972E850011CBAA /* RCPurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CEF1402D972E7E0011CBAA /* RCPurchaseController.swift */; };
+		89CEF1432D9747500011CBAA /* RevenueCatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CEF1422D97474B0011CBAA /* RevenueCatService.swift */; };
+		89CEF1452D9771510011CBAA /* TrainingContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CEF1442D9771510011CBAA /* TrainingContentView.swift */; };
+		89CEF1472D9779D30011CBAA /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CEF1462D9779CE0011CBAA /* UserViewModel.swift */; };
+		89CEF1492D977B1F0011CBAA /* ProgramViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CEF1482D977B1C0011CBAA /* ProgramViewModel.swift */; };
+		89CEF14B2D984D810011CBAA /* TrainingWorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CEF14A2D984D810011CBAA /* TrainingWorkoutCell.swift */; };
 		89F1B8782D7013590025BAE6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89F1B8772D7013590025BAE6 /* StoreKit.framework */; };
 		89F1B87C2D7014220025BAE6 /* Subscriptions.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 89F1B87B2D7014220025BAE6 /* Subscriptions.storekit */; };
 /* End PBXBuildFile section */
@@ -199,13 +205,12 @@
 		8941E3A32D809DD3009FF924 /* SelectGenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderView.swift; sourceTree = "<group>"; };
 		8941E3A52D80C881009FF924 /* NutritionPlanCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionPlanCells.swift; sourceTree = "<group>"; };
 		8962A8692D765E0B00E86C7D /* ProgramService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramService.swift; sourceTree = "<group>"; };
-		8962A86C2D765E9300E86C7D /* TrainingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingViewModel.swift; sourceTree = "<group>"; };
 		8962A86F2D76613A00E86C7D /* ProgramDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramDetailViewModel.swift; sourceTree = "<group>"; };
 		8962A8712D7661E500E86C7D /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		8962A8732D7665CC00E86C7D /* StartProgramViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartProgramViewModel.swift; sourceTree = "<group>"; };
 		8962A8752D76691200E86C7D /* DayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayView.swift; sourceTree = "<group>"; };
 		8962A8772D76692C00E86C7D /* DayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayViewModel.swift; sourceTree = "<group>"; };
-		8962A87A2D76699B00E86C7D /* WorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCell.swift; sourceTree = "<group>"; };
+		8962A87A2D76699B00E86C7D /* ProgramWorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramWorkoutCell.swift; sourceTree = "<group>"; };
 		8962A8802D776FE800E86C7D /* WeekCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCell.swift; sourceTree = "<group>"; };
 		8962A8822D77719C00E86C7D /* DayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCell.swift; sourceTree = "<group>"; };
 		8962A8852D778BA300E86C7D /* ExerciseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCell.swift; sourceTree = "<group>"; };
@@ -234,6 +239,12 @@
 		89B04D5D2D657DA90093CE6E /* Program.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Program.swift; sourceTree = "<group>"; };
 		89B78EC82D666CC5004D0857 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		89CAAEEE2D67B570006F516B /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
+		89CEF1402D972E7E0011CBAA /* RCPurchaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCPurchaseController.swift; sourceTree = "<group>"; };
+		89CEF1422D97474B0011CBAA /* RevenueCatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevenueCatService.swift; sourceTree = "<group>"; };
+		89CEF1442D9771510011CBAA /* TrainingContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingContentView.swift; sourceTree = "<group>"; };
+		89CEF1462D9779CE0011CBAA /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		89CEF1482D977B1C0011CBAA /* ProgramViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramViewModel.swift; sourceTree = "<group>"; };
+		89CEF14A2D984D810011CBAA /* TrainingWorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingWorkoutCell.swift; sourceTree = "<group>"; };
 		89F1B8772D7013590025BAE6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		89F1B87B2D7014220025BAE6 /* Subscriptions.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Subscriptions.storekit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -261,6 +272,7 @@
 				891A9E392D63D9F900D3C538 /* Functions in Frameworks */,
 				891A9E412D63D9F900D3C538 /* Supabase in Frameworks */,
 				891A9E372D63D9F900D3C538 /* Auth in Frameworks */,
+				89CEF13E2D960B280011CBAA /* SuperwallKit in Frameworks */,
 				89B574112D70E49400B31183 /* RevenueCat in Frameworks */,
 				891A9E3F2D63D9F900D3C538 /* Storage in Frameworks */,
 				89B5740F2D70E49400B31183 /* ReceiptParser in Frameworks */,
@@ -322,6 +334,7 @@
 				891A9E302D63D99700D3C538 /* Viewmodels */,
 				891A9E312D63D99F00D3C538 /* Models */,
 				891A9E322D63D9A700D3C538 /* Services */,
+				89CEF13F2D972E710011CBAA /* Superwall */,
 				891A9E4C2D6419F000D3C538 /* Navigation */,
 				8962A8842D778B9000E86C7D /* Cells */,
 				891A9E262D63D82700D3C538 /* Components */,
@@ -352,6 +365,8 @@
 			children = (
 				891A9E1E2D63D6A300D3C538 /* HybridAIApp.swift */,
 				896B47262D664EFC00A8F3D9 /* LoggedInView.swift */,
+				89CEF1482D977B1C0011CBAA /* ProgramViewModel.swift */,
+				89CEF1462D9779CE0011CBAA /* UserViewModel.swift */,
 			);
 			path = Setup;
 			sourceTree = "<group>";
@@ -430,6 +445,7 @@
 		891A9E322D63D9A700D3C538 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				89CEF1422D97474B0011CBAA /* RevenueCatService.swift */,
 				8962A8692D765E0B00E86C7D /* ProgramService.swift */,
 				8937BB092D8881850043ED91 /* GeneralService.swift */,
 				8937BB0B2D88992E0043ED91 /* RunService.swift */,
@@ -463,6 +479,7 @@
 			isa = PBXGroup;
 			children = (
 				891A9E642D64209B00D3C538 /* TrainingView.swift */,
+				89CEF1442D9771510011CBAA /* TrainingContentView.swift */,
 			);
 			path = Training;
 			sourceTree = "<group>";
@@ -526,7 +543,6 @@
 			isa = PBXGroup;
 			children = (
 				891A9E742D64214B00D3C538 /* SettingsView.swift */,
-				8941E39F2D7FEB15009FF924 /* NewNutritionPlanView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -573,6 +589,7 @@
 		8941E39E2D7FEB08009FF924 /* Nutrition */ = {
 			isa = PBXGroup;
 			children = (
+				8941E39F2D7FEB15009FF924 /* NewNutritionPlanView.swift */,
 			);
 			path = Nutrition;
 			sourceTree = "<group>";
@@ -580,7 +597,6 @@
 		8962A86B2D765E8E00E86C7D /* Training */ = {
 			isa = PBXGroup;
 			children = (
-				8962A86C2D765E9300E86C7D /* TrainingViewModel.swift */,
 			);
 			path = Training;
 			sourceTree = "<group>";
@@ -601,7 +617,8 @@
 			children = (
 				8962A8802D776FE800E86C7D /* WeekCell.swift */,
 				8962A8822D77719C00E86C7D /* DayCell.swift */,
-				8962A87A2D76699B00E86C7D /* WorkoutCell.swift */,
+				8962A87A2D76699B00E86C7D /* ProgramWorkoutCell.swift */,
+				89CEF14A2D984D810011CBAA /* TrainingWorkoutCell.swift */,
 				8962A8852D778BA300E86C7D /* ExerciseCell.swift */,
 				89ACF8CC2D924CA500354041 /* SuperSetCell.swift */,
 				8937BB102D88C9330043ED91 /* SegmentCell.swift */,
@@ -636,6 +653,14 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
+		89CEF13F2D972E710011CBAA /* Superwall */ = {
+			isa = PBXGroup;
+			children = (
+				89CEF1402D972E7E0011CBAA /* RCPurchaseController.swift */,
+			);
+			path = Superwall;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -662,6 +687,7 @@
 				89B5740E2D70E49400B31183 /* ReceiptParser */,
 				89B574102D70E49400B31183 /* RevenueCat */,
 				89B574122D70E49400B31183 /* RevenueCatUI */,
+				89CEF13D2D960B280011CBAA /* SuperwallKit */,
 			);
 			productName = HybridAI;
 			productReference = 891A9DED2D63CF1C00D3C538 /* HybridAI.app */;
@@ -748,6 +774,7 @@
 			packageReferences = (
 				891A9E2F2D63D93A00D3C538 /* XCRemoteSwiftPackageReference "supabase-swift" */,
 				89B5740D2D70E49400B31183 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
+				89CEF13C2D960B280011CBAA /* XCRemoteSwiftPackageReference "Superwall-iOS" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 891A9DEE2D63CF1C00D3C538 /* Products */;
@@ -805,12 +832,12 @@
 				8941E38C2D7E4023009FF924 /* Marathon.swift in Sources */,
 				8941E3902D7EA3EE009FF924 /* Fiftyk.swift in Sources */,
 				896B472C2D66507400A8F3D9 /* SelectListRow.swift in Sources */,
+				89CEF1412D972E850011CBAA /* RCPurchaseController.swift in Sources */,
 				89ACF8BB2D90BFE400354041 /* SecondaryPull.swift in Sources */,
 				8941E3822D7B9B8A009FF924 /* SelectLongRunView.swift in Sources */,
 				8941E39D2D7FE770009FF924 /* Nutrition.swift in Sources */,
 				89ACF8B92D90BFD200354041 /* SecondaryPush.swift in Sources */,
 				893C913C2D6BFB5D00528A6E /* AuthService.swift in Sources */,
-				8962A86D2D765E9600E86C7D /* TrainingViewModel.swift in Sources */,
 				8937BB332D8B56270043ED91 /* PrimaryPush.swift in Sources */,
 				89B04D5E2D657DAA0093CE6E /* Program.swift in Sources */,
 				8941E3882D7B9BD6009FF924 /* SelectGymAccessView.swift in Sources */,
@@ -830,11 +857,13 @@
 				8937BB0A2D8881880043ED91 /* GeneralService.swift in Sources */,
 				8962A8832D77719C00E86C7D /* DayCell.swift in Sources */,
 				89ACF8CD2D924CA500354041 /* SuperSetCell.swift in Sources */,
+				89CEF1472D9779D30011CBAA /* UserViewModel.swift in Sources */,
 				8941E3862D7B9B9B009FF924 /* SelectWeeklyLiftsView.swift in Sources */,
 				896B47252D664BFA00A8F3D9 /* CoordinatorLink.swift in Sources */,
 				89ACF8C52D90FE1400354041 /* UpperBody.swift in Sources */,
 				8941E3842D7B9B92009FF924 /* SelectRaceDayView.swift in Sources */,
 				8941E3A02D7FEB15009FF924 /* NewNutritionPlanView.swift in Sources */,
+				89CEF14B2D984D810011CBAA /* TrainingWorkoutCell.swift in Sources */,
 				8941E38E2D7E662F009FF924 /* LiftService.swift in Sources */,
 				89ACF8C72D91107000354041 /* Workout.swift in Sources */,
 				891A9E632D64208C00D3C538 /* OneTimeCodeView.swift in Sources */,
@@ -867,8 +896,9 @@
 				8937BB002D8781E70043ED91 /* General.swift in Sources */,
 				8941E3A62D80C881009FF924 /* NutritionPlanCells.swift in Sources */,
 				891A9E712D64211500D3C538 /* StartProgramView.swift in Sources */,
-				8962A87B2D76699B00E86C7D /* WorkoutCell.swift in Sources */,
+				8962A87B2D76699B00E86C7D /* ProgramWorkoutCell.swift in Sources */,
 				8937BB162D88CBF00043ED91 /* LiftDetailView.swift in Sources */,
+				89CEF1452D9771510011CBAA /* TrainingContentView.swift in Sources */,
 				8941E3A22D7FEB9E009FF924 /* NewNutritionPlanViewModel.swift in Sources */,
 				891A9E692D6420AE00D3C538 /* ProgramDetailView.swift in Sources */,
 				8937BB372D8B56310043ED91 /* Core.swift in Sources */,
@@ -877,6 +907,7 @@
 				89ACF8C32D90FE1000354041 /* LowerBody.swift in Sources */,
 				891A9E432D63DA4E00D3C538 /* User.swift in Sources */,
 				896B472E2D66526900A8F3D9 /* StyledButton.swift in Sources */,
+				89CEF1432D9747500011CBAA /* RevenueCatService.swift in Sources */,
 				89ACF8BF2D90C02100354041 /* UpperAccessoryPull.swift in Sources */,
 				891A9E592D64205200D3C538 /* ExperienceView.swift in Sources */,
 				8937BB272D88EB4C0043ED91 /* FullBody.swift in Sources */,
@@ -887,6 +918,7 @@
 				89ACF8CB2D9222B800354041 /* Jump.swift in Sources */,
 				8962A8722D7661E500E86C7D /* ErrorView.swift in Sources */,
 				8937BAF82D86309B0043ED91 /* MultiplePerDayView.swift in Sources */,
+				89CEF1492D977B1F0011CBAA /* ProgramViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1233,6 +1265,14 @@
 				minimumVersion = 5.18.0;
 			};
 		};
+		89CEF13C2D960B280011CBAA /* XCRemoteSwiftPackageReference "Superwall-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/superwall/Superwall-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.5;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1280,6 +1320,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 89B5740D2D70E49400B31183 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
 			productName = RevenueCatUI;
+		};
+		89CEF13D2D960B280011CBAA /* SuperwallKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 89CEF13C2D960B280011CBAA /* XCRemoteSwiftPackageReference "Superwall-iOS" */;
+			productName = SuperwallKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

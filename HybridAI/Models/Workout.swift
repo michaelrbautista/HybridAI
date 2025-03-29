@@ -120,19 +120,19 @@ enum WorkoutType: Codable {
     var asString: String {
         switch self {
         case .EasyRun:
-            return "Easy Run"
+            return "Easy run"
         case .SpeedWorkout:
-            return "Speed Workout"
+            return "Speed workout"
         case .LongRun:
-            return "Long Run"
+            return "Long run"
         case .FullBody:
-            return "Full Body Lift"
+            return "Full body lift"
         case .UpperBody:
-            return "Upper Body Lift"
+            return "Upper body lift"
         case .LowerBody:
-            return "Lower Body Lift"
+            return "Lower body lift"
         case .FullBodyBodyweight:
-            return "Bodyweight Lift"
+            return "Bodyweight lift"
         }
     }
 }

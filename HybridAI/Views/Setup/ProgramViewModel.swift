@@ -1,29 +1,43 @@
 //
-//  TrainingViewModel.swift
+//  ProgramViewModel.swift
 //  HybridAI
 //
-//  Created by Michael Bautista on 3/3/25.
+//  Created by Michael Bautista on 3/28/25.
 //
 
 import SwiftUI
+import Supabase
+import RevenueCat
+import SuperwallKit
 
-final class TrainingViewModel: ObservableObject {
+class ProgramViewModel: ObservableObject {
     
     @Published var program: Program? = nil
+    @Published var workouts = [Workout]()
+    
+    @Published var isLoading = false
+    
     @Published var startDate: Date? = nil
+    @Published var isStarted = false
     @Published var isInProgress = false
     
-    @Published var nutritionPlan: NutritionPlan? = nil
+    @Published var isSubscribed = false
+    @Published var isPastFirstWeek = false
     
-    @Published var isLoading = true
     @Published var returnedError = false
     @Published var errorMessage = ""
     
-    // MARK: Get user's program and nutrition plan
-    @MainActor
-    public func getProgramAndNutritionPlan() async {
+    init() {
         self.isLoading = true
         
+        Task {
+            await getTrainingProgram()
+        }
+    }
+    
+    // MARK: Get program
+    @MainActor
+    public func getTrainingProgram() async {
         do {
             guard let currentUserId = UserService.currentUser?.id else {
                 self.isLoading = false
@@ -36,19 +50,23 @@ final class TrainingViewModel: ObservableObject {
             
             self.program = program
             
+            // Check if user is subscribed
+            self.isSubscribed = try await RevenueCatService.shared.checkSubscription()
+            
             // Check is user started the program
             self.startDate = UserDefaults.standard.value(forKey: "startDate") as? Date
             
-            // Get nutrition plan
-            if let usersNutritionPlan = UserDefaults.standard.value(forKey: "nutritionPlan") as? NutritionPlan {
-                nutritionPlan = usersNutritionPlan
+            // Get today's workouts
+            if startDate != nil {
+                self.isStarted = true
+                getStartedProgram()
             }
             
             self.isLoading = false
         } catch {
-            self.isLoading = false
             self.returnedError = true
             self.errorMessage = error.localizedDescription
+            self.isLoading = false
         }
     }
     
@@ -70,9 +88,13 @@ final class TrainingViewModel: ObservableObject {
         let week = (daysSinceStarted / 7) + 1
         let day = (daysSinceStarted % 7)
         
+        if week > 1 {
+            self.isPastFirstWeek = true
+        }
+        
         let workouts = self.program?.content.weeks[week].days[day].workouts
         
-        print(workouts?.count ?? "No workouts")
+        self.workouts = workouts ?? [Workout]()
     }
     
     // MARK: Start program
@@ -88,15 +110,5 @@ final class TrainingViewModel: ObservableObject {
         UserDefaults.standard.set(nextMonday, forKey: "startDate")
         
         print(nextMonday)
-    }
-}
-
-extension Calendar {
-    func numberOfDaysBetween(_ from: Date, and to: Date) -> Int {
-        let fromDate = startOfDay(for: from) // <1>
-        let toDate = startOfDay(for: to) // <2>
-        let numberOfDays = dateComponents([.day], from: fromDate, to: toDate) // <3>
-        
-        return numberOfDays.day!
     }
 }

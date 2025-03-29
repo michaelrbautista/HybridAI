@@ -1,14 +1,13 @@
 //
-//  WorkoutCell.swift
+//  TrainingWorkoutCell.swift
 //  HybridAI
 //
-//  Created by Michael Bautista on 3/3/25.
+//  Created by Michael Bautista on 3/29/25.
 //
 
 import SwiftUI
 
-struct WorkoutCell: View {
-    
+struct TrainingWorkoutCell: View {
     var workout: Workout
     var action: (() -> Void)
     
@@ -27,12 +26,12 @@ struct WorkoutCell: View {
                         .font(Font.FontStyles.caption1)
                     
                     if workout.distance != nil {
-                        Text("\(workout.distance!) Miles Easy")
-                            .font(Font.FontStyles.caption1)
+                        Text("\(workout.distance!) miles easy")
+                            .font(Font.FontStyles.headline)
                             .foregroundStyle(Color.ColorSystem.primaryText)
                     } else if workout.minutes != nil {
-                        Text("\(configureTime(minutes: workout.minutes!))s Easy")
-                            .font(Font.FontStyles.caption1)
+                        Text("\(configureTime(minutes: workout.minutes!))s easy")
+                            .font(Font.FontStyles.headline)
                             .foregroundStyle(Color.ColorSystem.primaryText)
                     }
                 } else if workout.type == .LongRun {
@@ -40,25 +39,25 @@ struct WorkoutCell: View {
                         .font(Font.FontStyles.caption1)
                     
                     if workout.distance != nil {
-                        Text("\(workout.distance!) Mile Long Run")
-                            .font(Font.FontStyles.caption1)
+                        Text("\(workout.distance!) mile long run")
+                            .font(Font.FontStyles.headline)
                             .foregroundStyle(Color.ColorSystem.primaryText)
                     } else if workout.minutes != nil {
-                        Text("\(configureTime(minutes: workout.minutes!)) Long Run")
-                            .font(Font.FontStyles.caption1)
+                        Text("\(configureTime(minutes: workout.minutes!)) long run")
+                            .font(Font.FontStyles.headline)
                             .foregroundStyle(Color.ColorSystem.primaryText)
                     }
                 } else {
                     if workout.type == .SpeedWorkout {
                         Text("🏃‍♂️")
-                            .font(Font.FontStyles.caption1)
+                            .font(Font.FontStyles.headline)
                     } else {
                         Text("🏋️‍♂️")
-                            .font(Font.FontStyles.caption1)
+                            .font(Font.FontStyles.headline)
                     }
                     
                     Text(workout.type.asString)
-                        .font(Font.FontStyles.caption1)
+                        .font(Font.FontStyles.headline)
                         .foregroundStyle(Color.ColorSystem.primaryText)
                 }
                 
@@ -75,6 +74,8 @@ struct WorkoutCell: View {
             .background(Color.ColorSystem.systemGray5)
             .clipShape(RoundedRectangle(cornerRadius: 10))
         }
+        .listRowInsets(EdgeInsets(top: 10, leading: 20, bottom: 0, trailing: 20))
+        .listRowSeparator(.hidden)
     }
     
     func configureTime(minutes: Int) -> String {
@@ -82,12 +83,12 @@ struct WorkoutCell: View {
             let hours = minutes / 60
             let minutes = minutes % 60
             if minutes == 0 {
-                return "\(hours) Hour"
+                return "\(hours) hour"
             } else {
-                return "\(hours) Hour \(minutes) Minute"
+                return "\(hours) hour \(minutes) minute"
             }
         } else {
-            return "\(minutes) Minute"
+            return "\(minutes) minute"
         }
     }
 }
@@ -95,7 +96,7 @@ struct WorkoutCell: View {
 #Preview {
     NavigationStack {
         List {
-            WorkoutCell(workout: Workout(type: .EasyRun, distance: nil, minutes: 45, segments: nil, exercises: nil)) {
+            TrainingWorkoutCell(workout: Workout(type: .EasyRun, distance: nil, minutes: 45, segments: nil, exercises: nil)) {
                 
             }
         }

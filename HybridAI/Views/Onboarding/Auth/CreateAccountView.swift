@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CreateAccountView: View {
     @EnvironmentObject var navigationController: NavigationController
+    @EnvironmentObject var userViewModel: UserViewModel
     @StateObject var viewModel: OnboardingViewModel
     
     @State var email = ""
@@ -71,7 +72,7 @@ struct CreateAccountView: View {
                         try await SupabaseService.shared.supabase.auth.signInWithOTP(email: email, shouldCreateUser: true)
                         
                         // Go to next page
-                        navigationController.push(.OneTimeCodeView(isSignIn: false, email: email))
+                        navigationController.push(.OneTimeCodeView(viewModel: viewModel, isSignIn: false, email: email))
                     } catch {
                         isLoading = false
                         errorMessage = "There was an issue creating your account. Please try again later."

@@ -20,7 +20,7 @@
     "_applicationInternalID" : "6742280359",
     "_developerTeamID" : "T2V9U83CKZ",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 762322940.66996706,
+    "_lastSynchronizedDate" : 764873101.32414305,
     "_storeKitErrors" : [
       {
         "current" : null,
@@ -75,7 +75,7 @@
       "localizations" : [
 
       ],
-      "name" : "Basic",
+      "name" : "Old Subscriptions",
       "subscriptions" : [
         {
           "adHocOffers" : [

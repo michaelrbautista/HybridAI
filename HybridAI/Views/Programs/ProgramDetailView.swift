@@ -6,94 +6,95 @@
 //
 
 import SwiftUI
+import SuperwallKit
 
 struct ProgramDetailView: View {
     @EnvironmentObject var navigationController: NavigationController
     @EnvironmentObject var userViewModel: UserViewModel
-    
-    @StateObject var viewModel: ProgramDetailViewModel
     
     @State var presentStartProgram = false
     @State var presentPurchaseModal = false
     @State var presentFinishProgram = false
     
     var body: some View {
-        if viewModel.isLoading {
-            LoadingView()
-                .onAppear {
-                    Task {
-                        await viewModel.getProgram()
-                    }
-                }
-        } else if viewModel.returnedError {
-            ErrorView(errorMessage: viewModel.errorMessage)
-        } else if viewModel.program == nil {
-            Text("You haven't created a program yet.")
-                .font(Font.FontStyles.headline)
-                .foregroundStyle(Color.ColorSystem.systemGray)
+        List {
+            // MARK: Title
+            Text(userViewModel.program?.title ?? "")
+                .font(Font.FontStyles.title1)
+                .foregroundStyle(Color.ColorSystem.primaryText)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .multilineTextAlignment(.leading)
                 .listRowSeparator(.hidden)
-        } else {
-            List {
-                // MARK: Title
-                Text(viewModel.program!.title)
-                    .font(Font.FontStyles.title1)
-                    .foregroundStyle(Color.ColorSystem.primaryText)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .multilineTextAlignment(.leading)
-                    .listRowSeparator(.hidden)
-                
-                // MARK: Workouts
-                if let weeks = viewModel.program?.content.weeks {
+            
+            // MARK: Workouts
+            if userViewModel.isSubscribed {
+                if let weeks = userViewModel.program?.content.weeks {
                     ForEach(weeks, id: \.self) { week in
                         WeekCell(isInSheet: false, weekNumber: week.week, phase: week.phase, days: week.days)
                     }
                 }
+            } else {
+                if let weekOne = userViewModel.program?.content.weeks[0] {
+                    WeekCell(isInSheet: false, weekNumber: weekOne.week, phase: weekOne.phase, days: weekOne.days)
+                    
+                    StyledButton(
+                        variant: .primary,
+                        text: "Unlock the rest of the program",
+                        isLoading: .constant(false)
+                    ) {
+                        Superwall.shared.register(placement: "campaign_trigger")
+                    }
+                    .buttonStyle(.plain)
+                    .listRowSeparator(.hidden)
+                    
+                    Rectangle()
+                        .frame(height: 40)
+                        .foregroundStyle(Color.ColorSystem.systemBackground)
+                        .listRowSeparator(.hidden)
+                }
             }
-            .listStyle(.plain)
-            .scrollContentBackground(.hidden)
-            .navigationBarTitleDisplayMode(.inline)
-            .background(Color.ColorSystem.systemBackground)
-            .toolbar(content: {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        if viewModel.isStarted {
-                            Task {
-                                // Finish program
-                                presentFinishProgram.toggle()
-                            }
-                        } else {
-                            Task {
-                                // Start program
-                                viewModel.startProgram()
-                                userViewModel.isStarted = true
-                            }
+        }
+        .listStyle(.plain)
+        .scrollContentBackground(.hidden)
+        .navigationBarTitleDisplayMode(.inline)
+        .background(Color.ColorSystem.systemBackground)
+        .toolbar(content: {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    if userViewModel.isStarted {
+                        Task {
+                            // Finish program
+                            presentFinishProgram.toggle()
                         }
-                    } label: {
-                        if viewModel.isStarted {
-                            Text("Finish")
-                        } else {
-                            Text("Start")
+                    } else {
+                        Task {
+                            // Start program
+                            userViewModel.startProgram()
+                            userViewModel.isStarted = true
                         }
                     }
-                }
-            })
-            .alert(Text("Are you sure you want to finish this program?"), isPresented: $presentFinishProgram) {
-                Button(role: .destructive) {
-                    viewModel.finishProgram()
-                    userViewModel.isStarted = false
-                    userViewModel.isInProgress = false
-                    navigationController.popToRoot()
                 } label: {
-                    Text("Yes")
+                    if userViewModel.isStarted {
+                        Text("Finish")
+                    } else {
+                        Text("Start")
+                    }
                 }
             }
-//            .sheet(isPresented: $presentStartProgram) {
-//                StartProgramView()
-//            }
+        })
+        .alert(Text("Are you sure you want to finish this program?"), isPresented: $presentFinishProgram) {
+            Button(role: .destructive) {
+                userViewModel.finishProgram()
+                userViewModel.isStarted = false
+                userViewModel.isInProgress = false
+                navigationController.popToRoot()
+            } label: {
+                Text("Yes")
+            }
         }
     }
 }
 
 #Preview {
-    ProgramDetailView(viewModel: ProgramDetailViewModel(programId: "29683f2e-0da1-4eef-9666-09da010789e4"))
+    ProgramDetailView()
 }

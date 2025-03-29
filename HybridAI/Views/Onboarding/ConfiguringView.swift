@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SuperwallKit
 
 struct ConfiguringView: View {
     @EnvironmentObject var navigationController: NavigationController
@@ -16,7 +17,7 @@ struct ConfiguringView: View {
         VStack {
             Spacer()
             if viewModel.isConfiguring {
-                Text("Configuring your program...")
+                Text("Creating your program...")
                     .font(Font.FontStyles.title2)
                     .foregroundStyle(Color.ColorSystem.primaryText)
                     .multilineTextAlignment(.center)
@@ -35,16 +36,24 @@ struct ConfiguringView: View {
                     .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
                     .foregroundStyle(Color.ColorSystem.primaryText)
                     .multilineTextAlignment(.center)
+                    .onAppear {
+                        viewModel.createGeneralProgram()
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            Superwall.shared.register(placement: "campaign_trigger")
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                viewModel.isWaitingForPaywall = false
+                            }
+                        }
+                    }
             }
             Spacer()
             StyledButton(
-                variant: viewModel.isConfiguring ? .disabled : .primary,
+                variant: viewModel.isWaitingForPaywall ? .disabled : .primary,
                 text: "Next",
                 isLoading: .constant(false)) {
-                    navigationController.presentFullScreenCover(.PaywallView(viewModel: viewModel, onDismiss: {
-                        navigationController.dismissFullScreenCover()
-                        navigationController.push(.CreateAccountView(viewModel: viewModel))
-                    }))
+                    navigationController.push(.CreateAccountView(viewModel: viewModel))
                 }
         }
         .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
@@ -54,7 +63,9 @@ struct ConfiguringView: View {
                     await viewModel.getOfferings()
                 }
                 
-                viewModel.isConfiguring = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    viewModel.isConfiguring = false
+                }
             }
         }
     }

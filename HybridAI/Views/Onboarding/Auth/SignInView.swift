@@ -11,6 +11,7 @@ import Supabase
 struct SignInView: View {
     @EnvironmentObject var navigationController: NavigationController
     @EnvironmentObject var userViewModel: UserViewModel
+    @StateObject var viewModel = OnboardingViewModel()
     
     @State var email = ""
     @State var isValidEmail = false
@@ -71,7 +72,7 @@ struct SignInView: View {
                         try await SupabaseService.shared.supabase.auth.signInWithOTP(email: email, shouldCreateUser: false)
                         
                         // Go to next page
-                        navigationController.push(.OneTimeCodeView(isSignIn: true, email: email))
+                        navigationController.push(.OneTimeCodeView(viewModel: viewModel, isSignIn: true, email: email))
                     } catch {
                         isLoading = false
                         errorMessage = "There was an error signing you in. Please try again."
