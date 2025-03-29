@@ -8,13 +8,12 @@
 import Foundation
 
 struct CreateProgramRequest: Codable, Hashable {
-    var programId: String?
+    var id: String?
     var title: String
     var content: ProgramContent
     
     enum CodingKeys: String, CodingKey {
-        case title, content
-        case programId = "id"
+        case id, title, content
     }
 }
 

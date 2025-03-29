@@ -94,9 +94,13 @@ struct OneTimeCodeView: View {
                             
                             // Save program
                             await viewModel.saveNewProgram(currentProgramId: nil)
+                            
+                            if viewModel.returnedError == false {
+                                userViewModel.program = viewModel.newProgram
+                            }
+                            
+                            userViewModel.isLoggedIn = true
                         }
-                        
-                        userViewModel.isLoggedIn = true
                     } catch {
                         isLoading = false
                         errorMessage = "There was an issue signing you in. Please try again later."

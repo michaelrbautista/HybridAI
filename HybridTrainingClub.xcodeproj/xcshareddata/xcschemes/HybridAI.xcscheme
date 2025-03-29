@@ -18,7 +18,7 @@
                BlueprintIdentifier = "891A9DEC2D63CF1C00D3C538"
                BuildableName = "HybridAI.app"
                BlueprintName = "HybridAI"
-               ReferencedContainer = "container:HybridAI.xcodeproj">
+               ReferencedContainer = "container:HybridTrainingClub.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -38,7 +38,7 @@
                BlueprintIdentifier = "891A9DFC2D63CF1D00D3C538"
                BuildableName = "HybridAITests.xctest"
                BlueprintName = "HybridAITests"
-               ReferencedContainer = "container:HybridAI.xcodeproj">
+               ReferencedContainer = "container:HybridTrainingClub.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -49,7 +49,7 @@
                BlueprintIdentifier = "891A9E062D63CF1D00D3C538"
                BuildableName = "HybridAIUITests.xctest"
                BlueprintName = "HybridAIUITests"
-               ReferencedContainer = "container:HybridAI.xcodeproj">
+               ReferencedContainer = "container:HybridTrainingClub.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,7 +71,7 @@
             BlueprintIdentifier = "891A9DEC2D63CF1C00D3C538"
             BuildableName = "HybridAI.app"
             BlueprintName = "HybridAI"
-            ReferencedContainer = "container:HybridAI.xcodeproj">
+            ReferencedContainer = "container:HybridTrainingClub.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <StoreKitConfigurationFileReference
@@ -91,7 +91,7 @@
             BlueprintIdentifier = "891A9DEC2D63CF1C00D3C538"
             BuildableName = "HybridAI.app"
             BlueprintName = "HybridAI"
-            ReferencedContainer = "container:HybridAI.xcodeproj">
+            ReferencedContainer = "container:HybridTrainingClub.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

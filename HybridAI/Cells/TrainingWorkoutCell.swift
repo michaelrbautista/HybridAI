@@ -74,6 +74,7 @@ struct TrainingWorkoutCell: View {
             .background(Color.ColorSystem.systemGray5)
             .clipShape(RoundedRectangle(cornerRadius: 10))
         }
+        .buttonStyle(.plain)
         .listRowInsets(EdgeInsets(top: 10, leading: 20, bottom: 0, trailing: 20))
         .listRowSeparator(.hidden)
     }

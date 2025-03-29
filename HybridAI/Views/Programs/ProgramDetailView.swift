@@ -37,15 +37,18 @@ struct ProgramDetailView: View {
                 if let weekOne = userViewModel.program?.content.weeks[0] {
                     WeekCell(isInSheet: false, weekNumber: weekOne.week, phase: weekOne.phase, days: weekOne.days)
                     
-                    StyledButton(
-                        variant: .primary,
-                        text: "Unlock the rest of the program",
-                        isLoading: .constant(false)
-                    ) {
-                        Superwall.shared.register(placement: "campaign_trigger")
+                    HStack {
+                        Spacer()
+                        Text("Subscribe to unlock the other weeks")
+                            .font(Font.FontStyles.headline)
+                            .foregroundStyle(Color.ColorSystem.primaryText)
+                        Spacer()
                     }
-                    .buttonStyle(.plain)
+                    .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
+                    .background(Color.ColorSystem.systemGray6)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
                     .listRowSeparator(.hidden)
+                    .listRowBackground(Color.ColorSystem.systemBackground)
                     
                     Rectangle()
                         .frame(height: 40)

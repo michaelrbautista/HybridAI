@@ -12,7 +12,6 @@ struct NewlyCreatedProgramView: View {
     @EnvironmentObject var navigationController: NavigationController
     @EnvironmentObject var sheetNavigationController: SheetNavigationController
     @EnvironmentObject var userViewModel: UserViewModel
-    @EnvironmentObject var programViewModel: ProgramViewModel
     
     @StateObject var viewModel: NewProgramViewModel
     
@@ -37,17 +36,19 @@ struct NewlyCreatedProgramView: View {
                     }
                 } else {
                     if let weekOne = viewModel.newProgram?.content.weeks[0] {
-                        WeekCell(isInSheet: false, weekNumber: weekOne.week, phase: weekOne.phase, days: weekOne.days)
+                        WeekCell(isInSheet: true, weekNumber: weekOne.week, phase: weekOne.phase, days: weekOne.days)
                             .listRowBackground(Color.ColorSystem.systemBackground)
                         
-                        StyledButton(
-                            variant: .primary,
-                            text: "Unlock the rest of the program",
-                            isLoading: .constant(false)
-                        ) {
-                            Superwall.shared.register(placement: "campaign_trigger")
+                        HStack {
+                            Spacer()
+                            Text("Subscribe to unlock the other weeks")
+                                .font(Font.FontStyles.headline)
+                                .foregroundStyle(Color.ColorSystem.primaryText)
+                            Spacer()
                         }
-                        .buttonStyle(.plain)
+                        .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
+                        .background(Color.ColorSystem.systemGray6)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.ColorSystem.systemBackground)
                         
@@ -67,10 +68,10 @@ struct NewlyCreatedProgramView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     Task {
-                        await viewModel.saveNewProgram(currentProgramId: programViewModel.program?.id)
+                        await viewModel.saveNewProgram(currentProgramId: userViewModel.program?.id)
                         
                         if viewModel.returnedError == false {
-                            programViewModel.program = viewModel.newProgram
+                            userViewModel.program = viewModel.newProgram
                             
                             navigationController.dismissSheet()
                         }

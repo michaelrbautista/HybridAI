@@ -52,9 +52,13 @@ struct SettingsView: View {
                 Button {
                     Superwall.shared.register(placement: "campaign_trigger")
                 } label: {
-                    Text("Unlock my program")
-                        .font(Font.FontStyles.headline)
-                        .foregroundStyle(Color.ColorSystem.primaryText)
+                    HStack {
+                        Spacer()
+                        Text("Unlock the rest of your program")
+                            .font(Font.FontStyles.headline)
+                            .foregroundStyle(Color.ColorSystem.primaryText)
+                        Spacer()
+                    }
                 }
                 .listRowBackground(Color.ColorSystem.systemBlue)
             }

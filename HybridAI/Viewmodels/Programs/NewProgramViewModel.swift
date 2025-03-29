@@ -37,14 +37,16 @@ final class NewProgramViewModel: ObservableObject {
     @MainActor
     public func saveNewProgram(currentProgramId: String?) async {
         guard let programContent = self.newProgram?.content, let programTitle = self.newProgram?.title else {
-            print("Couldn't get content from newly created program.")
+            self.returnedError = true
+            self.errorMessage = "Couldn't get content from newly created program."
+            self.isSaving = false
             return
         }
         
         self.isSaving = true
         
         let createProgramRequest = CreateProgramRequest(
-            programId: currentProgramId,
+            id: currentProgramId,
             title: programTitle,
             content: programContent
         )

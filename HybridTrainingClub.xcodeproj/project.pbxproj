@@ -762,7 +762,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 891A9DE82D63CF1C00D3C538 /* Build configuration list for PBXProject "HybridAI" */;
+			buildConfigurationList = 891A9DE82D63CF1C00D3C538 /* Build configuration list for PBXProject "HybridTrainingClub" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1210,7 +1210,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		891A9DE82D63CF1C00D3C538 /* Build configuration list for PBXProject "HybridAI" */ = {
+		891A9DE82D63CF1C00D3C538 /* Build configuration list for PBXProject "HybridTrainingClub" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				891A9E0F2D63CF1D00D3C538 /* Debug */,

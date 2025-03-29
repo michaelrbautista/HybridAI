@@ -54,7 +54,7 @@ final class OnboardingViewModel: ObservableObject {
         self.isSaving = true
         
         let createProgramRequest = CreateProgramRequest(
-            programId: currentProgramId,
+            id: currentProgramId,
             title: programTitle,
             content: programContent
         )
